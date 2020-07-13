@@ -5,12 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>AdminLTE 3 | Starter</title>
+    <title>{{ config('app.name', 'Bug Tracker') }}</title>
+
     <link rel="stylesheet" href="/css/app.css">
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" id="app">
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -19,6 +22,9 @@
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
+            <div class="nav-item">
+                <p class="pt-2">Logged in as: <strong>Admin</strong></p>
+            </div>
         </ul>
 
         <!-- SEARCH FORM -->
@@ -38,9 +44,30 @@
             <!-- Notifications side Menu -->
             <li class="nav-item dropdown" >
                 <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                    <i class="far fa-bell"></i>
-                    <span class="badge badge-warning navbar-badge">15</span>
+                    <p><i class="fa fa-bell"></i> Notifications</p>
+                    <span class="badge badge-warning navbar-badge">2</span>
                 </a>
+            </li>
+            <!-- User actions   -->
+            <li>
+            <li class="nav-item dropdown">
+                <a class="nav-link " data-toggle="dropdown" href="#">
+                    <i class="fa fa-user"></i> <span class="dark"> User Actions</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <router-link to="/profile" class="dropdown-item">
+                        <i class="fas fa-user mr-2"></i>Profile
+                    </router-link>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        <i class="fa fa-sign-out-alt mr-2"></i>{{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
             </li>
         </ul>
     </nav>
@@ -52,7 +79,7 @@
         <a href="index3.html" class="brand-link">
             <img src="/images/bug.png" alt="Bug tracker Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">Bug Tracker</span>
         </a>
 
         <!-- Sidebar -->
@@ -63,7 +90,7 @@
                     <img src="/images/user.png" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <router-link to="/profile" class="d-block">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</router-link>
                 </div>
             </div>
 
@@ -72,35 +99,51 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <li class="nav-item">
+                        <router-link to="/dashboard" class="nav-link active">
+                            <i class="nav-icon fa fa-accelerometer"></i>
                             <p>
-                                Starter Pages
+                                Dashboard
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <router-link to="/dashboard" class="nav-link bg-warning">
+                            <i class="nav-icon fas fa-th-large"></i>
+                            <p>
+                                Management
                                 <i class="right fas fa-angle-left"></i>
                             </p>
-                        </a>
+                        </router-link>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Active Page</p>
+                                <a href="#" class="nav-link">
+                                    <i class="fa fa-cogs nav-icon"></i>
+                                    <p>Manage Role Assignment</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Inactive Page</p>
+                                <a href="#" class="nav-link ">
+                                    <i class="fa fa-users nav-icon"></i>
+                                    <p>Manage Project Users</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            <i class="nav-icon fa fa-list-alt"></i>
                             <p>
-                                Simple Link
-                                <span class="right badge badge-danger">New</span>
+                                My Projects
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-th-list"></i>
+                            <p>
+                                My Tickets
                             </p>
                         </a>
                     </li>
@@ -113,85 +156,12 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Starter Page</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Starter Page</li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
-
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-
-                                <p class="card-text">
-                                    Some quick example text to build on the card title and make up the bulk of the card's
-                                    content.
-                                </p>
-
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                            </div>
-                        </div>
-
-                        <div class="card card-primary card-outline">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-
-                                <p class="card-text">
-                                    Some quick example text to build on the card title and make up the bulk of the card's
-                                    content.
-                                </p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                            </div>
-                        </div><!-- /.card -->
-                    </div>
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="m-0">Featured</h5>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-title">Special title treatment</h6>
-
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h5 class="m-0">Featured</h5>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-title">Special title treatment</h6>
-
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col-md-6 -->
-                </div>
-                <!-- /.row -->
+                <!-- route outlet -->
+                <!-- component matched by the route will render here -->
+                <router-view></router-view>
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content -->
@@ -212,10 +182,10 @@
     <footer class="main-footer">
         <!-- To the right -->
         <div class="float-right d-none d-sm-inline">
-            Anything you want
+            Keep shipping
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2020 <a href="https://chegesimon.netlify.app/">Chege Simon</a>.</strong> All rights reserved.
     </footer>
 </div>
 <!-- ./wrapper -->

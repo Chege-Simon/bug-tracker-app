@@ -20,6 +20,13 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -169,7 +176,7 @@
       <updated>1594096675211</updated>
       <workItem from="1594096719073" duration="870000" />
       <workItem from="1594184876868" duration="5937000" />
-      <workItem from="1594645520097" duration="1674000" />
+      <workItem from="1594645520097" duration="17979000" />
     </task>
     <servers />
   </component>
@@ -209,9 +216,9 @@
       <screen x="0" y="0" width="1600" height="868" />
     </state>
     <state x="301" y="79" key="SettingsEditor/0.0.1600.868@0.0.1600.868" timestamp="1594096970075" />
-    <state x="863" y="182" width="672" height="678" key="search.everywhere.popup" timestamp="1594187236656">
+    <state x="863" y="182" width="672" height="678" key="search.everywhere.popup" timestamp="1594662665317">
       <screen x="0" y="0" width="1600" height="868" />
     </state>
-    <state x="863" y="182" width="672" height="678" key="search.everywhere.popup/0.0.1600.868@0.0.1600.868" timestamp="1594187236656" />
+    <state x="863" y="182" width="672" height="678" key="search.everywhere.popup/0.0.1600.868@0.0.1600.868" timestamp="1594662665317" />
   </component>
 </project>
