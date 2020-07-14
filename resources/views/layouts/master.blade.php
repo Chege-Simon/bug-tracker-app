@@ -123,10 +123,10 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link ">
+                                <router-link to="/users" class="nav-link ">
                                     <i class="fa fa-users nav-icon"></i>
                                     <p>Manage Project Users</p>
-                                </a>
+                                </router-link>
                             </li>
                         </ul>
                     </li>
@@ -161,7 +161,9 @@
             <div class="container-fluid">
                 <!-- route outlet -->
                 <!-- component matched by the route will render here -->
-                <router-view></router-view>
+                <router-view :user="{{ auth()->user() }}"></router-view>
+                <!-- set progressbar -->
+                <vue-progress-bar></vue-progress-bar>
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content -->

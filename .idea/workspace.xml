@@ -143,7 +143,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -155,6 +155,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\resources\js\components" />
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\public\images" />
     </key>
   </component>
@@ -177,6 +178,7 @@
       <workItem from="1594096719073" duration="870000" />
       <workItem from="1594184876868" duration="5937000" />
       <workItem from="1594645520097" duration="17979000" />
+      <workItem from="1594716352907" duration="22616000" />
     </task>
     <servers />
   </component>
@@ -196,10 +198,15 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1085" y="297" key="#Notifications" timestamp="1594188110451">
-      <screen x="0" y="0" width="1600" height="868" />
+    <state x="1085" y="298" key="#Notifications" timestamp="1594716399670">
+      <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="1085" y="297" key="#Notifications/0.0.1600.868@0.0.1600.868" timestamp="1594188110451" />
+    <state x="1085" y="298" key="#Notifications/0.0.1600.870@0.0.1600.870" timestamp="1594716399670" />
+    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1594732461387">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870@0.0.1600.870" timestamp="1594732461387" />
     <state x="869" y="212" key="EditFileWatcherDialog" timestamp="1594187779656">
       <screen x="0" y="0" width="1600" height="868" />
     </state>
