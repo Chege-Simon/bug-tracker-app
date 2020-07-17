@@ -30,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="Ubuntu 18.04">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
       <path value="$PROJECT_DIR$/vendor/facade/flare-client-php" />
@@ -159,11 +159,24 @@
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\public\images" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner scope="XML" />
+  <component name="RunManager" selected="JavaScript Debug.ManageRole.vue">
+    <configuration name="ManageRole.vue" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:52980/bug-tracker-app/resources/js/components/ManageRole.vue" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
+    <configuration name="Auth" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner configuration_file="/home/dev-kim/bug-tracker-app/phpunit.xml" directory="$PROJECT_DIR$/app/Http/Controllers/Auth" />
+      <method v="2" />
+    </configuration>
+    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner configuration_file="/home/dev-kim/bug-tracker-app/phpunit.xml" scope="XML" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.ManageRole.vue" />
+        <item itemvalue="PHPUnit.Auth" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -178,7 +191,8 @@
       <workItem from="1594096719073" duration="870000" />
       <workItem from="1594184876868" duration="5937000" />
       <workItem from="1594645520097" duration="17979000" />
-      <workItem from="1594716352907" duration="22616000" />
+      <workItem from="1594716352907" duration="23225000" />
+      <workItem from="1594976927555" duration="16772000" />
     </task>
     <servers />
   </component>
@@ -198,11 +212,19 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="380" y="90" key="#CLI_Interpreters" timestamp="1594984799888">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="380" y="90" key="#CLI_Interpreters/0.0.1600.870@0.0.1600.870" timestamp="1594984799888" />
     <state x="1085" y="298" key="#Notifications" timestamp="1594716399670">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="1085" y="297" key="#Notifications/0.0.1600.868@0.0.1600.868" timestamp="1594188110451" />
     <state x="1085" y="298" key="#Notifications/0.0.1600.870@0.0.1600.870" timestamp="1594716399670" />
+    <state x="507" y="78" key="#PHP" timestamp="1594984803852">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="507" y="78" key="#PHP/0.0.1600.870@0.0.1600.870" timestamp="1594984803852" />
     <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1594732461387">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
@@ -215,6 +237,54 @@
       <screen x="0" y="0" width="1600" height="868" />
     </state>
     <state x="580" y="189" key="FileChooserDialogImpl/0.0.1600.868@0.0.1600.868" timestamp="1594096967714" />
+    <state width="1557" height="226" key="GridCell.Tab.0.bottom" timestamp="1594993958202">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="226" key="GridCell.Tab.0.bottom/0.0.1600.870@0.0.1600.870" timestamp="1594993958202" />
+    <state width="1557" height="226" key="GridCell.Tab.0.center" timestamp="1594993958202">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="226" key="GridCell.Tab.0.center/0.0.1600.870@0.0.1600.870" timestamp="1594993958202" />
+    <state width="1557" height="226" key="GridCell.Tab.0.left" timestamp="1594993958201">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="226" key="GridCell.Tab.0.left/0.0.1600.870@0.0.1600.870" timestamp="1594993958201" />
+    <state width="1557" height="226" key="GridCell.Tab.0.right" timestamp="1594993958202">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="226" key="GridCell.Tab.0.right/0.0.1600.870@0.0.1600.870" timestamp="1594993958202" />
+    <state width="1557" height="280" key="GridCell.Tab.1.bottom" timestamp="1594985493017">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="280" key="GridCell.Tab.1.bottom/0.0.1600.870@0.0.1600.870" timestamp="1594985493017" />
+    <state width="1557" height="280" key="GridCell.Tab.1.center" timestamp="1594985493017">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="280" key="GridCell.Tab.1.center/0.0.1600.870@0.0.1600.870" timestamp="1594985493017" />
+    <state width="1557" height="280" key="GridCell.Tab.1.left" timestamp="1594985493016">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="280" key="GridCell.Tab.1.left/0.0.1600.870@0.0.1600.870" timestamp="1594985493016" />
+    <state width="1557" height="280" key="GridCell.Tab.1.right" timestamp="1594985493017">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="280" key="GridCell.Tab.1.right/0.0.1600.870@0.0.1600.870" timestamp="1594985493017" />
+    <state width="1557" height="280" key="GridCell.Tab.2.bottom" timestamp="1594985493017">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="280" key="GridCell.Tab.2.bottom/0.0.1600.870@0.0.1600.870" timestamp="1594985493017" />
+    <state width="1557" height="280" key="GridCell.Tab.2.center" timestamp="1594985493017">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="280" key="GridCell.Tab.2.center/0.0.1600.870@0.0.1600.870" timestamp="1594985493017" />
+    <state width="1557" height="280" key="GridCell.Tab.2.left" timestamp="1594985493017">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="280" key="GridCell.Tab.2.left/0.0.1600.870@0.0.1600.870" timestamp="1594985493017" />
+    <state width="1557" height="280" key="GridCell.Tab.2.right" timestamp="1594985493017">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state width="1557" height="280" key="GridCell.Tab.2.right/0.0.1600.870@0.0.1600.870" timestamp="1594985493017" />
     <state x="634" y="357" key="NewPhpFileDialog" timestamp="1594186962270">
       <screen x="0" y="0" width="1600" height="868" />
     </state>
@@ -223,6 +293,14 @@
       <screen x="0" y="0" width="1600" height="868" />
     </state>
     <state x="301" y="79" key="SettingsEditor/0.0.1600.868@0.0.1600.868" timestamp="1594096970075" />
+    <state x="921" y="183" width="540" height="524" key="StructurePopup" timestamp="1594976964539">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="921" y="183" width="540" height="524" key="StructurePopup/0.0.1600.870@0.0.1600.870" timestamp="1594976964539" />
+    <state x="456" y="198" key="run.anything.popup" timestamp="1594990118110">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="456" y="198" key="run.anything.popup/0.0.1600.870@0.0.1600.870" timestamp="1594990118110" />
     <state x="863" y="182" width="672" height="678" key="search.everywhere.popup" timestamp="1594662665317">
       <screen x="0" y="0" width="1600" height="868" />
     </state>

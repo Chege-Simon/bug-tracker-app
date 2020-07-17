@@ -32,7 +32,7 @@
                                 </div>
                                 <!-- /.col -->
                                 <div class="tab-pane col-md-9" id="settings">
-                                    <form @submit.prevent="editUser" >
+                                    <form @submit.prevent="updateUser(user.id)" >
                                         <div class="form-group">
                                             <label>First Name</label>
                                             <input v-model="form.first_name" type="text" name="first_name"
@@ -68,6 +68,15 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <hr>
+                                    <div class="row">
+                                        <p class="col-md-8 text-left">want to change your password?</p>
+                                        <div class="col-md-2">
+                                            <a class="btn btn-primary" href="/password/reset">
+                                                Change Password
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.tab-pane -->
                             </div>
@@ -94,6 +103,7 @@
         data() {
             return  {
                 form: new Form({
+                    id:'',
                     first_name: '',
                     last_name: '',
                     email: '',
@@ -102,19 +112,29 @@
             }
         },
         methods:{
-            editUser(){
+            updateUser(id){
                 // Submit the form via a POST request
                 this.$Progress.start();
-                this.form.post('/api/user');
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Edited in successfully'
+                this.form.put('/api/user/'+id)
+                .then(()=>{
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Edited user details successfully'
+                    })
+                    // this.user.first_name = (result.value)? this.form.first_name: this.user.first_name;
+                    this.$Progress.finish();
                 })
-                this.$Progress.finish();
+                .catch(()=>{
+                    Toast.fire({
+                        icon: 'warning',
+                        title: 'Oops...Something went wrong'
+                    })
+                    this.$Progress.fail();
+                })
             }
         },
         mounted() {
-            //
+            this.form.fill(this.user);
         }
     }
 </script>

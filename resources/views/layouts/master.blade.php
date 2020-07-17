@@ -108,19 +108,19 @@
                         </router-link>
                     </li>
                     <li class="nav-item has-treeview">
-                        <router-link to="/dashboard" class="nav-link bg-warning">
+                        <a class="nav-link bg-warning">
                             <i class="nav-icon fas fa-th-large"></i>
                             <p>
                                 Management
                                 <i class="right fas fa-angle-left"></i>
                             </p>
-                        </router-link>
+                        </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <router-link to="/manageroles" href="#" class="nav-link">
                                     <i class="fa fa-cogs nav-icon"></i>
                                     <p>Manage Role Assignment</p>
-                                </a>
+                                </router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link to="/users" class="nav-link ">

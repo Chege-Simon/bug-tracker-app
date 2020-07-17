@@ -29,11 +29,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate(request,[
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'role' => 'required|string|max:255',
+//            'project' => 'required|string|max:255',
 
+        ]);
+//        return User::create($validatedData);
         return User::create([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
-            'role' => 'user',
+            'role' => $request['role'],
             'email' => $request['email'],
             'password' => Hash::make('main2020'),
         ]);
@@ -59,7 +67,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user=User::findOrFail($id);
+        $this->validate($request,[
+            'first_name' => 'string|max:255',
+            'last_name' => 'string|max:255',
+            'email' => 'string|email|max:255|unique:users,email,'.$user->id,
+        ]);
+        $user->update($request->all());
     }
 
     /**
@@ -70,6 +84,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        //delete user
+        $user->delete();
+
+         return ['message' => 'User Deleted'];
+
     }
 }
