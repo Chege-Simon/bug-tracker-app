@@ -22,9 +22,6 @@
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
-            <div class="nav-item">
-                <p class="pt-2">Logged in as: <strong>Admin</strong></p>
-            </div>
         </ul>
 
         <!-- SEARCH FORM -->
@@ -90,7 +87,7 @@
                     <img src="/images/user.png" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <router-link to="/profile" class="d-block">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</router-link>
+                    <router-link to="/profile" class="d-block">Logged in as: <strong>{{ Auth::user()->role }}</strong></router-link>
                 </div>
             </div>
 

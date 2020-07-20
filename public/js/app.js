@@ -2287,6 +2287,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      me: {},
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["Form"]({
         id: '',
         first_name: '',
@@ -2306,7 +2307,8 @@ __webpack_require__.r(__webpack_exports__);
         Toast.fire({
           icon: 'success',
           title: 'Edited user details successfully'
-        }); // this.user.first_name = (result.value)? this.form.first_name: this.user.first_name;
+        });
+        Fire.$emit('userInfo');
 
         _this.$Progress.finish();
       })["catch"](function () {
@@ -2317,10 +2319,27 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.$Progress.fail();
       });
+    },
+    loadUser: function loadUser() {
+      var _this2 = this;
+
+      this.$Progress.start();
+      axios.get('api/user/' + this.user.id).then(function (response) {
+        _this2.me = response.data;
+      });
+      this.$Progress.finish();
     }
   },
   mounted: function mounted() {
+    var _this3 = this;
+
+    // this.updateUser(this.user.id);
+    // // var ref = this;
+    this.loadUser();
     this.form.fill(this.user);
+    Fire.$on('userInfo', function () {
+      _this3.loadUser();
+    });
   }
 });
 
@@ -42732,15 +42751,15 @@ var render = function() {
                         { staticClass: "profile-username text-center" },
                         [
                           _vm._v(
-                            _vm._s(_vm.user.first_name) +
+                            _vm._s(_vm.me.first_name) +
                               " " +
-                              _vm._s(_vm.user.last_name)
+                              _vm._s(_vm.me.last_name)
                           )
                         ]
                       ),
                       _vm._v(" "),
                       _c("p", { staticClass: "text-muted text-center" }, [
-                        _vm._v(_vm._s(_vm.user.role))
+                        _vm._v(_vm._s(_vm.me.role))
                       ]),
                       _vm._v(" "),
                       _c(
@@ -42753,7 +42772,7 @@ var render = function() {
                             _c("b", [_vm._v("Email")]),
                             _vm._v(" "),
                             _c("a", { staticClass: "float-right" }, [
-                              _vm._v(_vm._s(_vm.user.email))
+                              _vm._v(_vm._s(_vm.me.email))
                             ])
                           ])
                         ]
@@ -59133,15 +59152,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************!*\
   !*** ./resources/js/components/Users.vue ***!
   \*******************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Users_vue_vue_type_template_id_30c27aa6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Users.vue?vue&type=template&id=30c27aa6& */ "./resources/js/components/Users.vue?vue&type=template&id=30c27aa6&");
 /* harmony import */ var _Users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Users.vue?vue&type=script&lang=js& */ "./resources/js/components/Users.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -59171,7 +59189,7 @@ component.options.__file = "resources/js/components/Users.vue"
 /*!********************************************************************!*\
   !*** ./resources/js/components/Users.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

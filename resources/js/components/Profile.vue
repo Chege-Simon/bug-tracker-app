@@ -17,13 +17,13 @@
                                                      alt="User profile picture">
                                             </div>
 
-                                            <h3 class="profile-username text-center">{{ user.first_name }} {{ user.last_name }}</h3>
+                                            <h3 class="profile-username text-center">{{ me.first_name }} {{ me.last_name }}</h3>
 
-                                            <p class="text-muted text-center">{{ user.role }}</p>
+                                            <p class="text-muted text-center">{{ me.role }}</p>
 
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
-                                                    <b>Email</b> <a class="float-right">{{ user.email }}</a>
+                                                    <b>Email</b> <a class="float-right">{{ me.email }}</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -102,6 +102,7 @@
         },
         data() {
             return  {
+                me:{},
                 form: new Form({
                     id:'',
                     first_name: '',
@@ -121,7 +122,7 @@
                         icon: 'success',
                         title: 'Edited user details successfully'
                     })
-                    // this.user.first_name = (result.value)? this.form.first_name: this.user.first_name;
+                    Fire.$emit('userInfo');
                     this.$Progress.finish();
                 })
                 .catch(()=>{
@@ -131,10 +132,24 @@
                     })
                     this.$Progress.fail();
                 })
+            },
+            loadUser(){
+                this.$Progress.start();
+                axios.get('api/user/'+this.user.id)
+                    .then((response) =>{
+                        this.me = response.data;
+                    });
+                this.$Progress.finish();
             }
         },
         mounted() {
+            // this.updateUser(this.user.id);
+            // // var ref = this;
+            this.loadUser();
             this.form.fill(this.user);
+            Fire.$on('userInfo',()=>{
+                this.loadUser();
+            });
         }
     }
 </script>

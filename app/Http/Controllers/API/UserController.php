@@ -55,7 +55,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+
+        return response()->json($user);
     }
 
     /**
@@ -92,4 +95,5 @@ class UserController extends Controller
          return ['message' => 'User Deleted'];
 
     }
+
 }
