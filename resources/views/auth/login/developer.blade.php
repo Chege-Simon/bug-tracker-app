@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
@@ -12,7 +11,7 @@
                 <div class="card-body login-card-body">
                     <p class="login-box-msg">Sign in to start your session</p>
 
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('developer.login') }}">
                         @csrf
 
                         <div class="input-group mb-3">
@@ -37,8 +36,8 @@
                             </div>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
 
                         </div>

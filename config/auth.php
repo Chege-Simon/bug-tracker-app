@@ -40,7 +40,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+        'developer' => [
+            'driver' => 'session',
+            'provider' => 'developer',
+        ],
+        'project_manager' => [
+            'driver' => 'session',
+            'provider' => 'project_manager',
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -66,6 +77,18 @@ return [
     */
 
     'providers' => [
+        'developer' => [
+            'driver' => 'eloquent',
+            'model' => App\Developer::class,
+        ],
+        'project_manager' => [
+            'driver' => 'eloquent',
+            'model' => App\Project_manager::class,
+        ],
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
@@ -93,6 +116,24 @@ return [
     */
 
     'passwords' => [
+        'developer' => [
+            'provider' => 'developer',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'project_manager' => [
+            'provider' => 'project_manager',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admin' => [
+            'provider' => 'admin',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',

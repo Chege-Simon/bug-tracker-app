@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Developer;
 use App\Http\Controllers\Controller;
+use App\Project_manager;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Admin;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -65,11 +67,39 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
+        if (request()->role == 'admin'){
+            return Admin::create([
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'role' => 'Admin',
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }elseif (request()->role == 'developer'){
+            return Developer::create([
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'role' => 'Developer',
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }elseif (request()->role == 'project_manager') {
+            return Project_manager::create([
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'role' => 'Project Manager',
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }elseif (request()->role == 'user') {
+            return User::create([
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'role' => 'user',
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
+}
+
 }

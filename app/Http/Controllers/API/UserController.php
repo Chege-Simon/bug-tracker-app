@@ -33,15 +33,14 @@ class UserController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'role' => 'required|string|max:255',
-//            'project' => 'required|string|max:255',
+            'project' => 'required|string|max:255',
 
         ]);
 //        return User::create($validatedData);
         return User::create([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
-            'role' => $request['role'],
+            'role' => 'User',
             'email' => $request['email'],
             'password' => Hash::make('main2020'),
         ]);
