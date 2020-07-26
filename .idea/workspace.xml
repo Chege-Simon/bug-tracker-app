@@ -151,6 +151,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
   </component>
   <component name="RecentsManager">
@@ -198,6 +199,8 @@
       <workItem from="1594976927555" duration="16772000" />
       <workItem from="1595248805542" duration="6616000" />
       <workItem from="1595669481046" duration="27760000" />
+      <workItem from="1595753706010" duration="13894000" />
+      <workItem from="1595772472512" duration="599000" />
     </task>
     <servers />
   </component>
@@ -230,10 +233,18 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="507" y="78" key="#PHP/0.0.1600.870@0.0.1600.870" timestamp="1594984803852" />
-    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595689276612">
+    <state x="605" y="117" key="#com.intellij.ide.util.MemberChooser" timestamp="1595764571041">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
-    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870@0.0.1600.870" timestamp="1595689276612" />
+    <state x="605" y="117" key="#com.intellij.ide.util.MemberChooser/0.0.1600.870@0.0.1600.870" timestamp="1595764571041" />
+    <state x="480" y="171" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1595772009757">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="480" y="171" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1600.870@0.0.1600.870" timestamp="1595772009757" />
+    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595762335868">
+      <screen x="0" y="0" width="1600" height="870" />
+    </state>
+    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870@0.0.1600.870" timestamp="1595762335868" />
     <state x="869" y="212" key="EditFileWatcherDialog" timestamp="1594187779656">
       <screen x="0" y="0" width="1600" height="868" />
     </state>
@@ -323,7 +334,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/layouts/master.blade.php</url>
-          <line>133</line>
+          <line>135</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

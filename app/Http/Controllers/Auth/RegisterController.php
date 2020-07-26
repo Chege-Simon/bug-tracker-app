@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Project_manager;
 use App\Providers\RouteServiceProvider;
 use App\Admin;
+use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class RegisterController extends Controller
 {
@@ -51,12 +53,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+//        if (request()->role == 'admin') {
+//            return Validator::make($data, [
+//                'first_name' => ['required', 'string', 'max:255'],
+//                'last_name' => ['required', 'string', 'max:255'],
+//                'email' => ['required', 'string', 'email', 'max:255', 'unique:admins'],
+//                'password' => ['required', 'string', 'min:8', 'confirmed'],
+//            ]);
+//        }
     }
 
     /**
@@ -65,9 +69,15 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(array $data, Request $request)
     {
         if (request()->role == 'admin'){
+//            $this->validate($request, [
+//                'first_name' => ['required', 'string', 'max:255'],
+//                'last_name' => ['required', 'string', 'max:255'],
+//                'email' => ['required', 'string', 'email', 'max:255', 'unique:admins'],
+//                'password' => ['required', 'string', 'min:8', 'confirmed'],
+//            ]);
             return Admin::create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
@@ -76,6 +86,12 @@ class RegisterController extends Controller
                 'password' => Hash::make($data['password']),
             ]);
         }elseif (request()->role == 'developer'){
+            $data = $request->validate([
+                'first_name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:developers'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
             return Developer::create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
@@ -84,6 +100,12 @@ class RegisterController extends Controller
                 'password' => Hash::make($data['password']),
             ]);
         }elseif (request()->role == 'project_manager') {
+            $data = $request->validate([
+                'first_name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:project_managers'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
             return Project_manager::create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
@@ -92,6 +114,12 @@ class RegisterController extends Controller
                 'password' => Hash::make($data['password']),
             ]);
         }elseif (request()->role == 'user') {
+            $data = $request->validate([
+                'first_name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
             return User::create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],

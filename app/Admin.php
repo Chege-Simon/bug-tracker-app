@@ -1,14 +1,13 @@
 <?php
 
+namespace App\Http\Controllers;
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
+//namespace App\Models;
+use Illuminate\Foundation\Auth\User as Model;
 class Admin extends Model
 {
-
-    protected $guarded = ['email'];
-
+    protected $guarded = ['id'];
     protected $hidden = [
         'password', 'remember_token',
     ];

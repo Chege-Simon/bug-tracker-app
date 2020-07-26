@@ -69,52 +69,164 @@
 {{--            }--}}
 {{--        </style>--}}
     </head>
-{{--    <body>--}}
-{{--        <div class="flex-center position-ref full-height">--}}
-
-{{--            <div class="content">--}}
-{{--                <div class="title m-b-md">--}}
-{{--                    Laravel--}}
-{{--                </div>--}}
-
-{{--                <div class="links">--}}
-{{--                    <a href="https://laravel.com/docs">Docs</a>--}}
-{{--                    <a href="https://laracasts.com">Laracasts</a>--}}
-{{--                    <a href="https://laravel-news.com">News</a>--}}
-{{--                    <a href="https://blog.laravel.com">Blog</a>--}}
-{{--                    <a href="https://nova.laravel.com">Nova</a>--}}
-{{--                    <a href="https://forge.laravel.com">Forge</a>--}}
-{{--                    <a href="https://vapor.laravel.com">Vapor</a>--}}
-{{--                    <a href="https://github.com/laravel/laravel">GitHub</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </body>--}}
 <body class="row">
 <div class="container justify-content-center mt-5">
-<div class="row">
-<div class="col-md-4"></div>
-<div class="card text-center col-md-4 mt-5">
-    <div class="card-title">
+<div class="card text-center mt-5">
+    <div>
         <br>
         <br>
         <h3 ><b>Bug Tracker</b>app</h3>
     </div>
 
-    <div class="card-body">
-            <h4 class="">Select your role to login:</h4>
-            <div class="row justify-content-center">
-                    <a class="btn btn-success p-3 m-1 col-md-5" href="{{ route('login') }}">User</a>
-                    <a class="btn btn-primary p-3 m-1 col-md-5" href="{{ route('admin.login') }}">Admin</a>
-                    <a class="btn btn-warning p-3 m-1 col-md-5" href="{{ route('project_manager.login') }}">Manager</a>
-                    <a class="btn btn-dark p-3 m-1 col-md-5" href="{{ route('developer.login') }}">Developer</a>
+    <div class="conatiner row">
+        <div class="col-md-5 ml-5">
+            <div class="login-box">
+                <div class="login-logo">
+                    <a href="../../index2.html"><b>Admin</b>LTE</a>
+                </div>
+                <!-- /.login-logo -->
+                <div class="card">
+                    <div class="card-body login-card-body">
+                        <p class="login-box-msg">Sign in to start your session</p>
+
+                        <form action="../../index3.html" method="post">
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="Email">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" placeholder="Password">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="icheck-primary">
+                                        <input type="checkbox" id="remember">
+                                        <label for="remember">
+                                            Remember Me
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                        </form>
+
+                        <div class="social-auth-links text-center mb-3">
+                            <p>- OR -</p>
+                            <a href="#" class="btn btn-block btn-primary">
+                                <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                            </a>
+                            <a href="#" class="btn btn-block btn-danger">
+                                <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                            </a>
+                        </div>
+                        <!-- /.social-auth-links -->
+
+                        <p class="mb-1">
+                            <a href="forgot-password.html">I forgot my password</a>
+                        </p>
+                        <p class="mb-0">
+                            <a href="register.html" class="text-center">Register a new membership</a>
+                        </p>
+                    </div>
+                    <!-- /.login-card-body -->
+                </div>
             </div>
-        <br>
-            <a class="col-md-10 text-secondary" href="/registration">I want to Register</a>
+            <!-- /.login-box -->
+
+        </div><!-- /.card -->
+<div class="col-md-5 ml-5">
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="../../index2.html"><b>Admin</b>LTE</a>
         </div>
-        <!-- /.form-box -->
-    </div><!-- /.card -->
-<div class="col-md-4"></div>
+
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Register a new membership</p>
+
+                <form action="../../index.html" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Full name">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Email">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Retype password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                <label for="agreeTerms">
+                                    I agree to the <a href="#">terms</a>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <div class="social-auth-links text-center">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i>
+                        Sign up using Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i>
+                        Sign up using Google+
+                    </a>
+                </div>
+
+                <a href="login.html" class="text-center">I already have a membership</a>
+            </div>
+            <!-- /.form-box -->
+        </div><!-- /.card -->
+    </div>
+    <!-- /.register-box -->
+
+</div>
 </div>
 </div>
 </body>
