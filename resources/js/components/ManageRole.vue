@@ -27,8 +27,9 @@
                                 <td><span class="tag tag-success">{{ user.email }}</span></td>
                                 <td><span class="tag tag-success">{{ user.role }}</span></td>
                                 <td>
-                                    <a href="#">
-                                        <i class="fa fa-edit" data-toggle="modal" data-target="#editUserRole"></i>
+                                    <a href="#" @click="editModal(user)">
+                                        <i class="fa fa-edit"></i>
+<!--                                        data-toggle="modal" data-target="#editUserRole"-->
                                     </a>
                                         /
                                     <a href="#" @click="deleteUser(user.id)">
@@ -63,44 +64,53 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form @submit.prevent="editUserRole">
-                                <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-10">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="role" id="admin" value="admin">
-                                                    <label class="form-check-label" for="admin">
-                                                        Admin
-                                                    </label>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <form @submit.prevent="editUserRole(user.id)">
+                                            <div class="form-group row">
+                                                <label class="col-md-4">Admin</label>
+                                                <div class="col-md-6">
+                                                <input v-model="form.role" type="radio" name="admin" value="admin"
+                                                       class="form-control" :class="{ 'is-invalid': form.errors.has('role') }">
+                                                <has-error :form="form" field="role"></has-error>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="role" id="project_manager" value="project_manager">
-                                                    <label class="form-check-label" for="project_manager">
-                                                        Project Manager
-                                                    </label>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-4">Project Manager</label>
+                                                <div class="col-md-6">
+                                                <input v-model="form.role" type="radio" name="project_manager" value="project_manager"
+                                                       class="form-control" :class="{ 'is-invalid': form.errors.has('role') }">
+                                                <has-error :form="form" field="role"></has-error>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="role" id="developer" value="developer">
-                                                    <label class="form-check-label" for="developer">
-                                                        Developer
-                                                    </label>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-4">Developer</label>
+                                                <div class="col-md-6">
+                                                <input v-model="form.role" type="radio" name="developer" value="developer"
+                                                       class="form-control" :class="{ 'is-invalid': form.errors.has('role') }">
+                                                <has-error :form="form" field="role"></has-error>
                                                 </div>
-                                                <div class="form-check ">
-                                                    <input class="form-check-input" type="radio" name="role" id="user" value="user">
-                                                    <label class="form-check-label" for="user">
-                                                        User
-                                                    </label>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-4">User</label>
+                                                <div class="col-md-6">
+                                                <input v-model="form.role" type="radio" name="user" value="user"
+                                                       class="form-control" :class="{ 'is-invalid': form.errors.has('role') }">
+                                                <has-error :form="form" field="role"></has-error>
                                                 </div>
+                                            </div>
                                                 <br>
                                                 <div class="offset-md-5 form-group">
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                     <button type="submit" class="btn btn-primary"> <i class="fa fa-cog"></i> Action</button>
                                                 </div>
-                                            </div>
-                                        </div>
-                                </div>
                                 <!-- /.card-body -->
-                            </form>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.card -->
                     </div>
@@ -114,11 +124,17 @@
     import {Form} from "vform";
 
     export default {
-
+        props: {
+            user:{
+                type: Object,
+                required: true
+            }
+        },
         data() {
             return  {
                 users:{},
                 form: new Form({
+                    id:'',
                     first_name: '',
                     last_name: '',
                     email: '',
@@ -129,6 +145,10 @@
             }
         },
         methods:{
+            editModal(user){
+                $('#editUserRole').modal('show')
+                this.form.fill(user);
+            },
             deleteUser(id){
                 Swal.fire({
                     title: 'Are you sure?',
@@ -169,11 +189,37 @@
                 this.$Progress.finish();
             },
             editUserRole(id){
+                // Submit the form via a POST request
                 this.$Progress.start();
-                // this.form.post('/api/user');
-                Fire.$emit('refreshUserList');
-                $('#editUserRole').modal('hide')
-                this.$Progress.finish();
+                console.log(id);
+                if(this.form.id === id ){
+                    this.form.put('/api/user/'+this.form.id)
+                        .then(()=>{
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Edited user details successfully'
+                            })
+                            Fire.$emit('refreshUserList');
+                            $('#editUserRole').modal('hide')
+                            this.$Progress.finish();
+                            this.$Progress.finish();
+                        })
+                        .catch(()=>{
+                            Toast.fire({
+                                icon: 'warning',
+                                title: 'Oops...Something went wrong'
+                            })
+                            this.$Progress.fail();
+                        })
+                }else{
+                    $('#editUserRole').modal('hide')
+                    Toast.fire({
+                        icon: 'warning',
+                        title: 'You can not edit your own role ask another admin to change your role'
+                    })
+                    this.$Progress.fail();
+                }
+
             }
         },
         mounted() {

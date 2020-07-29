@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -40,7 +49,7 @@ class UserController extends Controller
         return User::create([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
-            'role' => 'User',
+            'role' => 'user',
             'email' => $request['email'],
             'password' => Hash::make('main2020'),
         ]);
@@ -86,6 +95,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('isAdmin');
         $user = User::findOrFail($id);
 
         //delete user

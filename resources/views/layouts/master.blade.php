@@ -104,7 +104,7 @@
                             </p>
                         </router-link>
                     </li>
-                    @if(auth()->user()->role == 'admin' && auth()->user()->role == 'project manager' )
+                    @can('isAdmin')
                     <li class="nav-item has-treeview">
                         <a class="nav-link bg-warning">
                             <i class="nav-icon fas fa-th-large"></i>
@@ -128,7 +128,7 @@
                             </li>
                         </ul>
                     </li>
-                    @endif
+                    @endcan
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-list-alt"></i>
