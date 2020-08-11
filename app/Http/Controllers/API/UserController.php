@@ -25,8 +25,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        if(\Gate::allows('isAdmin') || \Gate::allows('isProjectmanager'))
         $users = User::all();
-
         return response()->json($users);
     }
 
@@ -100,8 +100,7 @@ class UserController extends Controller
 
         //delete user
         $user->delete();
-
-         return ['message' => 'User Deleted'];
+        return ['message' => 'User Deleted'];
 
     }
 

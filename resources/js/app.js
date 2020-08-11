@@ -10,6 +10,8 @@ require('./bootstrap');
 window.Vue = require('vue');
 import { Form, HasError, AlertError } from 'vform';
 
+import Gate from "./Gate";
+Vue.prototype.$gate = new Gate(window.user);
 
 window.Form = Form;
 Vue.component(HasError.name, HasError)
@@ -62,6 +64,10 @@ const router = new VueRouter({
 window.Fire = new Vue();
 
 
+Vue.component(
+    'not-found',
+    require('./components/NotFound.vue').default
+);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

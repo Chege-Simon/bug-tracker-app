@@ -1,5 +1,8 @@
 <template>
     <div class="container">
+        <div v-if="!$gate.isAdmin()">
+            <not-found></not-found>
+        </div>
         <div class="row justify-content-center mt-5">
             <div class="col-md-12">
                 <div class="card">
@@ -191,8 +194,7 @@
             editUserRole(id){
                 // Submit the form via a POST request
                 this.$Progress.start();
-                console.log(id);
-                if(this.form.id === id ){
+                if(this.form.id != id ){
                     this.form.put('/api/user/'+this.form.id)
                         .then(()=>{
                             Toast.fire({

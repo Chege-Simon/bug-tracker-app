@@ -190,7 +190,11 @@
     </footer>
 </div>
 <!-- ./wrapper -->
-
+@auth
+    <script>
+        window.user = @json(auth()->user())
+    </script>
+@endauth
 <script src="/js/app.js"></script>
 
 </html>
