@@ -8,6 +8,9 @@ use App\User;
 
 class Project extends Model
 {
+    protected $fillable = [
+        'project_name','project_description', 'project_manager',
+    ];
     public function developers()
     {
         return $this->hasMany(Developer::class);

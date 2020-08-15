@@ -126,6 +126,12 @@
                                     <p>Manage Project Users</p>
                                 </router-link>
                             </li>
+                            <li class="nav-item">
+                                <router-link to="/projects" class="nav-link ">
+                                    <i class="fa fa-briefcase nav-icon"></i>
+                                    <p>Projects</p>
+                                </router-link>
+                            </li>
                         </ul>
                     </li>
                     @endcan

@@ -53,7 +53,8 @@ let routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue').default},
     { path: '/profile', component: require('./components/Profile.vue').default},
     { path: '/users', component: require('./components/Users.vue').default},
-    { path: '/manageroles', component: require('./components/ManageRole.vue').default}
+    { path: '/manageroles', component: require('./components/ManageRole.vue').default},
+    { path: '/projects', component: require('./components/Projects.vue').default}
 ]
 const router = new VueRouter({
     mode: 'history',

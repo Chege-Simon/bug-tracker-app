@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Project;
 use Illuminate\Http\Request;
-use App\User;
-use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+use Illuminate\Support\Facades\DB;
+
+class ProjectController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -18,7 +19,7 @@ class UserController extends Controller
     {
         $this->middleware('auth:api');
     }
-    /**
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -26,8 +27,8 @@ class UserController extends Controller
     public function index()
     {
         if(\Gate::allows('isAdmin') || \Gate::allows('isProject_manager'))
-        $users = User::all();
-        return response()->json($users);
+            $projects = Project::with('users')->get();
+        return response()->json($projects);
     }
 
     /**
@@ -39,20 +40,22 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'project' => 'required|string|max:255',
+            'project_name' => 'unique:projects|required|string|max:255',
+            'project_description' => 'required|string|max:255',
+            'project_manager' => 'required|integer',
 
         ]);
-//        return User::create($validatedData);
-        return User::create([
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
-            'role' => 'user',
-            'email' => $request['email'],
-            'password' => Hash::make('main2020'),
-        ]);
+        return User::create($validatedData);
+        Project::create([
+            'project_name' => $request['project_name'],
+            'project_description' => $request['project_description'],
+            'project_manager' => $request['project_manager'],
+            ]);
+        $project_manager = $request['project_manager'];
+        $project_name = $request['project_name'];
+        $project = DB::table('projects')->where('project_name',$project_name)->select('id')->first();
+        $project_id = $project->id;
+        return DB::table('project_user')->insert(['user_id' => $project_manager,'project_id' => $project_id]);
     }
 
     /**
@@ -63,10 +66,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-
-
-        return response()->json($user);
+        //
     }
 
     /**
@@ -78,13 +78,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user=User::findOrFail($id);
-        $this->validate($request,[
-            'first_name' => 'string|max:255',
-            'last_name' => 'string|max:255',
-            'email' => 'string|email|max:255|unique:users,email,'.$user->id,
-        ]);
-        $user->update($request->all());
+        //
     }
 
     /**
@@ -95,13 +89,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('isAdmin');
-        $user = User::findOrFail($id);
-
-        //delete user
-        $user->delete();
-        return ['message' => 'User Deleted'];
-
+        //
     }
-
 }

@@ -158,7 +158,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -167,12 +167,12 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\public\images" />
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\resources\js\components" />
+      <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\public\images" />
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\resources\views\auth\register" />
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\resources\views\auth" />
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\resources\views\auth\login" />
@@ -218,7 +218,9 @@
       <workItem from="1595772472512" duration="1277000" />
       <workItem from="1596013470776" duration="10833000" />
       <workItem from="1596112989406" duration="1188000" />
-      <workItem from="1597111918151" duration="10808000" />
+      <workItem from="1597111918151" duration="11345000" />
+      <workItem from="1597377245002" duration="3598000" />
+      <workItem from="1597477275710" duration="36392000" />
     </task>
     <servers />
   </component>
@@ -259,10 +261,10 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="480" y="171" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1600.870@0.0.1600.870" timestamp="1595772009757" />
-    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595762335868">
+    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1597516423818">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
-    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870@0.0.1600.870" timestamp="1595762335868" />
+    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870@0.0.1600.870" timestamp="1597516423818" />
     <state x="869" y="212" key="EditFileWatcherDialog" timestamp="1594187779656">
       <screen x="0" y="0" width="1600" height="868" />
     </state>
@@ -324,11 +326,11 @@
     </state>
     <state x="634" y="357" key="NewPhpFileDialog/0.0.1600.868@0.0.1600.868" timestamp="1594186962270" />
     <state x="634" y="358" key="NewPhpFileDialog/0.0.1600.870@0.0.1600.870" timestamp="1595689953280" />
-    <state x="471" y="102" key="SettingsEditor" timestamp="1595671627611">
+    <state x="403" y="129" key="SettingsEditor" timestamp="1597378056115">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="301" y="79" key="SettingsEditor/0.0.1600.868@0.0.1600.868" timestamp="1594096970075" />
-    <state x="471" y="102" key="SettingsEditor/0.0.1600.870@0.0.1600.870" timestamp="1595671627611" />
+    <state x="403" y="129" key="SettingsEditor/0.0.1600.870@0.0.1600.870" timestamp="1597378056115" />
     <state x="921" y="183" width="540" height="524" key="StructurePopup" timestamp="1594976964539">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
@@ -341,18 +343,18 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="456" y="198" key="run.anything.popup/0.0.1600.870@0.0.1600.870" timestamp="1594990118110" />
-    <state x="863" y="182" width="672" height="680" key="search.everywhere.popup" timestamp="1595671006733">
+    <state x="863" y="182" width="672" height="680" key="search.everywhere.popup" timestamp="1597501178871">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="863" y="182" width="672" height="678" key="search.everywhere.popup/0.0.1600.868@0.0.1600.868" timestamp="1594662665317" />
-    <state x="863" y="182" width="672" height="680" key="search.everywhere.popup/0.0.1600.870@0.0.1600.870" timestamp="1595671006733" />
+    <state x="863" y="182" width="672" height="680" key="search.everywhere.popup/0.0.1600.870@0.0.1600.870" timestamp="1597501178871" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/layouts/master.blade.php</url>
-          <line>135</line>
+          <line>141</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
