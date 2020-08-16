@@ -41,11 +41,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="/">{{ __('Login') }}</a>
+                                <a class="nav-link" href="/login">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/registration">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="/register">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -72,7 +72,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="">
             @yield('content')
         </main>
     </div>

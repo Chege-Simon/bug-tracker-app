@@ -16,7 +16,7 @@
                         @csrf
 
                         <div class="input-group mb-3">
-                            <input id="email" type="email" placeholder="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -29,7 +29,7 @@
                             @enderror
                         </div>
                         <div class="input-group mb-3">
-                            <input id="password" type="password" placeholder="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -43,7 +43,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-8 ml-3">
+                            <div class="col-7 ml-4">
                                 <div class="icheck-primary">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                     <label for="remember">
@@ -77,7 +77,7 @@
                             </a>
                         @endif
                     </p>
-                    <p class="mb-0">
+                    <p class="btn btn-link">
                         <a href="/registration" class="text-center">Register a new account</a>
                     </p>
                 </div>

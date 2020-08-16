@@ -132,6 +132,12 @@
                                     <p>Projects</p>
                                 </router-link>
                             </li>
+                            <li class="nav-item">
+                                <router-link to="/tickets" class="nav-link ">
+                                    <i class="fa fa-file nav-icon"></i>
+                                    <p>Tickets</p>
+                                </router-link>
+                            </li>
                         </ul>
                     </li>
                     @endcan
@@ -145,12 +151,12 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <router-link to="/tickets" class="nav-link">
                             <i class="nav-icon fas fa-th-list"></i>
                             <p>
                                 My Tickets
                             </p>
-                        </a>
+                        </router-link>
                     </li>
                 </ul>
             </nav>

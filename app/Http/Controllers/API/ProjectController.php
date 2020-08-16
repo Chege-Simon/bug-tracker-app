@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Project;
+use App\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -45,7 +46,7 @@ class ProjectController extends Controller
             'project_manager' => 'required|integer',
 
         ]);
-        return User::create($validatedData);
+//        return User::create($validatedData);
         Project::create([
             'project_name' => $request['project_name'],
             'project_description' => $request['project_description'],

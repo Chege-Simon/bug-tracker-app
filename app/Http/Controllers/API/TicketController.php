@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Project;
+use App\Ticket;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Exception;
 
-class MiscellaneousController extends Controller
+class TicketController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,7 +25,8 @@ class MiscellaneousController extends Controller
      */
     public function index()
     {
-        //
+        $tickets = Ticket::with('user')->with('project')->get();
+        return response()->json($tickets);
     }
 
     /**
@@ -36,16 +37,12 @@ class MiscellaneousController extends Controller
      */
     public function store(Request $request)
     {
-//        return $request[1];
-        foreach ($request[0] as $user){
-            try{
-                DB::table('project_user')->insert(['user_id' => $user,'project_id' => $request[1]]);
-            }catch(Exception $exception){
-                echo('Some users were already on the list') ;
-            }
-
-        }
-        return ['message' => 'Users added to project successfully'];
+//        return $request[0];
+        return Ticket::create([
+            'ticket_description' => $request[0],
+            'project_id' => $request[1],
+            'user_id' => $request[2],
+        ]);
     }
 
     /**
