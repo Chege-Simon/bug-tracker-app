@@ -167,7 +167,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -221,7 +221,9 @@
       <workItem from="1597111918151" duration="11345000" />
       <workItem from="1597377245002" duration="3598000" />
       <workItem from="1597477275710" duration="36392000" />
-      <workItem from="1597564285452" duration="25343000" />
+      <workItem from="1597564285452" duration="25627000" />
+      <workItem from="1597647570797" duration="3775000" />
+      <workItem from="1598328555108" duration="40046000" />
     </task>
     <servers />
   </component>
@@ -240,15 +242,21 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/../../../usr/bin" />
+    </ignored-roots>
+  </component>
   <component name="WindowStateProjectService">
     <state x="380" y="90" key="#CLI_Interpreters" timestamp="1594984799888">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="380" y="90" key="#CLI_Interpreters/0.0.1600.870@0.0.1600.870" timestamp="1594984799888" />
-    <state x="1085" y="298" width="483" height="274" key="#Notifications" timestamp="1596015957396">
-      <screen x="0" y="0" width="1600" height="870" />
+    <state x="2526" y="253" width="483" height="274" key="#Notifications" timestamp="1598329180638">
+      <screen x="1600" y="0" width="1366" height="738" />
     </state>
     <state x="1085" y="297" key="#Notifications/0.0.1600.868@0.0.1600.868" timestamp="1594188110451" />
+    <state x="2526" y="253" key="#Notifications/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598329180638" />
     <state x="1085" y="298" width="483" height="274" key="#Notifications/0.0.1600.870@0.0.1600.870" timestamp="1596015957396" />
     <state x="507" y="78" key="#PHP" timestamp="1594984803852">
       <screen x="0" y="0" width="1600" height="870" />
@@ -262,18 +270,20 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="480" y="171" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1600.870@0.0.1600.870" timestamp="1595772009757" />
-    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1597573393830">
-      <screen x="0" y="0" width="1600" height="870" />
+    <state x="2394" y="164" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598334381093">
+      <screen x="1600" y="0" width="1366" height="738" />
     </state>
+    <state x="2394" y="164" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598334381093" />
     <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870@0.0.1600.870" timestamp="1597573393830" />
     <state x="869" y="212" key="EditFileWatcherDialog" timestamp="1594187779656">
       <screen x="0" y="0" width="1600" height="868" />
     </state>
     <state x="869" y="212" key="EditFileWatcherDialog/0.0.1600.868@0.0.1600.868" timestamp="1594187779656" />
-    <state x="580" y="189" key="FileChooserDialogImpl" timestamp="1594096967715">
-      <screen x="0" y="0" width="1600" height="868" />
+    <state x="2095" y="161" key="FileChooserDialogImpl" timestamp="1598329133469">
+      <screen x="1600" y="0" width="1366" height="738" />
     </state>
     <state x="580" y="189" key="FileChooserDialogImpl/0.0.1600.868@0.0.1600.868" timestamp="1594096967714" />
+    <state x="2095" y="161" key="FileChooserDialogImpl/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598329133469" />
     <state width="1557" height="270" key="GridCell.Tab.0.bottom" timestamp="1596026978622">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
@@ -327,10 +337,11 @@
     </state>
     <state x="634" y="357" key="NewPhpFileDialog/0.0.1600.868@0.0.1600.868" timestamp="1594186962270" />
     <state x="634" y="358" key="NewPhpFileDialog/0.0.1600.870@0.0.1600.870" timestamp="1595689953280" />
-    <state x="403" y="129" key="SettingsEditor" timestamp="1597378056115">
-      <screen x="0" y="0" width="1600" height="870" />
+    <state x="1868" y="21" width="998" height="708" key="SettingsEditor" timestamp="1598330060657">
+      <screen x="1600" y="0" width="1366" height="738" />
     </state>
     <state x="301" y="79" key="SettingsEditor/0.0.1600.868@0.0.1600.868" timestamp="1594096970075" />
+    <state x="1868" y="21" width="998" height="708" key="SettingsEditor/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598330060657" />
     <state x="403" y="129" key="SettingsEditor/0.0.1600.870@0.0.1600.870" timestamp="1597378056115" />
     <state x="921" y="183" width="540" height="524" key="StructurePopup" timestamp="1594976964539">
       <screen x="0" y="0" width="1600" height="870" />
@@ -349,16 +360,5 @@
     </state>
     <state x="863" y="182" width="672" height="678" key="search.everywhere.popup/0.0.1600.868@0.0.1600.868" timestamp="1594662665317" />
     <state x="863" y="182" width="672" height="680" key="search.everywhere.popup/0.0.1600.870@0.0.1600.870" timestamp="1597501178871" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/resources/views/layouts/master.blade.php</url>
-          <line>147</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

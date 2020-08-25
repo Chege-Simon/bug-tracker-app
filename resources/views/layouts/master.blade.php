@@ -104,7 +104,7 @@
                             </p>
                         </router-link>
                     </li>
-                    @can('isAdmin')
+                    @canany(['isAdmin', 'isProject_manager'])
                     <li class="nav-item has-treeview">
                         <a class="nav-link bg-warning">
                             <i class="nav-icon fas fa-th-large"></i>
@@ -140,24 +140,24 @@
                             </li>
                         </ul>
                     </li>
-                    @endcan
+                    @endcanany
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-list-alt"></i>
-                            <p>
-                                My Projects
-                            </p>
-                        </a>
+                        <router-link to="/myprojects" class="nav-link ">
+                            <i class="fa fa-list-alt nav-icon"></i>
+                            <p>My Projects</p>
+                        </router-link>
                     </li>
 
+                    @can(['isDeveloper'])
                     <li class="nav-item">
-                        <router-link to="/tickets" class="nav-link">
+                        <router-link to="/mytickets" class="nav-link">
                             <i class="nav-icon fas fa-th-list"></i>
                             <p>
                                 My Tickets
                             </p>
                         </router-link>
                     </li>
+                    @endcan
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

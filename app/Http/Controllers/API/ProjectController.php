@@ -27,7 +27,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        if(\Gate::allows('isAdmin') || \Gate::allows('isProject_manager'))
+        if(\Gate::allows('isAdmin') || \Gate::allows('isProject_manager') ||
+            \Gate::allows('isDeveloper'))
             $projects = Project::with('users')->get();
         return response()->json($projects);
     }
@@ -67,7 +68,10 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+
+//        $project = Project::findOrFail($id);
+        $project = Project::with('tickets')->find($id);
+        return response()->json($project);
     }
 
     /**

@@ -54,8 +54,12 @@ let routes = [
     { path: '/profile', component: require('./components/Profile.vue').default},
     { path: '/users', component: require('./components/Users.vue').default},
     { path: '/manageroles', component: require('./components/ManageRole.vue').default},
+    { path: '/projects', component: require('./components/Projects.vue').default},
     { path: '/tickets', component: require('./components/Tickets.vue').default},
-    { path: '/projects', component: require('./components/Projects.vue').default}
+    { path: '/myprojects', component: require('./components/Myprojects.vue').default},
+    { path: '/mytickets', component: require('./components/Mytickets.vue').default},
+    { path: '/projectdetails', component: require('./components/ProjectDetails.vue').default}
+
 ]
 const router = new VueRouter({
     mode: 'history',

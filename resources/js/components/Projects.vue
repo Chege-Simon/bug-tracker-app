@@ -62,17 +62,24 @@
                                     <span class="badge badge-success">Success</span>
                                 </td>
                                 <td class="text-center">
-                                    <a href="#" @click="deleteUser(project.id)">
-                                        <i class="fa fa-folder text-primary p-1">View</i>
+                                    <a href="#" @click="viewProject(project.id)"
+                                       class="nav-link">
+                                        <i class="nav-icon fa fa-info"
+                                           data-toggle="tooltip"
+                                           title="View project details"></i>
                                     </a>
-                                    <a href="#" @click="deleteUser(project.id)">
-                                        <i class="fa fa-pencil-alt text-dark p-1">Edit</i>
+                                    <a href="#"
+                                        @click="deleteUser(project.id)">
+                                        <i
+                                            class="nav-icon fa fa-pencil-alt text-dark p-1" data-toggle="tooltip" title="Edit the project details"></i>
                                     </a>
                                     <a href="#" @click="deleteUser(project.id)" v-if="$gate.isAdmin()">
-                                        <i class="fa fa-trash text-danger p-1">Delete</i>
+                                        <i
+                                            class="fa fa-trash text-danger p-1" data-toggle="tooltip" title="Delete the project"></i>
                                     </a>
                                     <a href="#" @click="showAddUserModal(project.id, project.project_name)" v-if="$gate.isProjectmanager()">
-                                        <i class="fa fa-user-plus text-success p-1">Add Users</i>
+                                        <i
+                                            class="fa fa-user-plus text-success p-1" data-toggle="tooltip" title="Add Users to the projects"></i>
                                     </a>
 <!--                                    <button class="btn btn-success" >New Project <i class="fa fa-briefcase fa-fw"></i></button>-->
                                 </td>
@@ -159,13 +166,13 @@
                                     <form @submit.prevent="addUsers" class="m-2">
                                         <div class="form-group">
                                             <label class="form-check-label" for="users">Select Users</label>
-<!--                                            <select class="custom-select form-control"-->
-<!--                                                    v-model="selectedUser">-->
-<!--                                                <option v-for="user in users" :key="user.id" :value="user.id"-->
-<!--                                                        v-if="user.role == 'user' || user.role == 'developer'">-->
-<!--                                                    {{ user.first_name }} {{ user.first_name }} &#45;&#45; {{ user.role }}-->
-<!--                                                </option>-->
-<!--                                            </select>-->
+                                            <!--                                            <select class="custom-select form-control"-->
+                                            <!--                                                    v-model="selectedUser">-->
+                                            <!--                                                <option v-for="user in users" :key="user.id" :value="user.id"-->
+                                            <!--                                                        v-if="user.role == 'user' || user.role == 'developer'">-->
+                                            <!--                                                    {{ user.first_name }} {{ user.first_name }} &#45;&#45; {{ user.role }}-->
+                                            <!--                                                </option>-->
+                                            <!--                                            </select>-->
                                             <div v-for="user in users" :key="user.id" id="users">
                                                 <input v-model="selectedUsers" type="checkbox" :value="user.id">
                                                 {{ user.first_name }} {{ user.last_name }} -- {{ user.role }}
@@ -184,7 +191,7 @@
                     </div>
                 </div>
             </section>
-    </div>
+        </div>
 </template>
 
 <script>
@@ -213,6 +220,12 @@
             }
         },
         methods:{
+            viewProject(project_id){
+                const Pid = project_id;
+                this.$router.push({path:'/projectdetails', query: {
+                    Pid }
+                })
+            },
             showAddUserModal(project_id, project_name){
                 $('#addUsers').modal('show');
                 this.current_project = project_id;
