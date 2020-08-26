@@ -18,6 +18,9 @@ class CreateProjectsTable extends Migration
             $table->string('project_name');
             $table->string('project_description');
             $table->integer('project_manager');
+            $table->integer('created_by');
+            $table->string('owner');
+            $table->string('status')->default('open');
             $table->timestamps();
         });
         Schema::create('project_user', function (Blueprint $table) {

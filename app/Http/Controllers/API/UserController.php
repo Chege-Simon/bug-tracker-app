@@ -25,8 +25,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(\Gate::allows('isAdmin') || \Gate::allows('isProject_manager') ||
-            \Gate::allows('isDeveloper'))
         $users = User::with('projects')->with('tickets')->get();
         return response()->json($users);
     }

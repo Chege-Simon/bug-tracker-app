@@ -9,7 +9,7 @@ use App\User;
 class Project extends Model
 {
     protected $fillable = [
-        'project_name','project_description', 'project_manager',
+        'project_name','project_description', 'project_manager','owner','created_by'
     ];
     public function users()
     {
@@ -18,5 +18,9 @@ class Project extends Model
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
+    }
+    public function issues()
+    {
+        return $this->hasMany(Issue::class);
     }
 }

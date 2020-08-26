@@ -35,3 +35,4 @@ Route::apiResources(['user' => 'API\UserController']);
 Route::apiResources(['project' => 'API\ProjectController']);
 Route::apiResources(['miscellaneous' => 'API\MiscellaneousController']);
 Route::apiResources(['ticket' => 'API\TicketController']);
+Route::apiResources(['issues' => 'API\IssuesController']);

@@ -87,7 +87,10 @@
                     <img src="/images/user.png" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <router-link to="/profile" class="d-block">Logged in as: <strong>{{ Auth::user()->role }}</strong></router-link>
+                    <router-link to="/profile" class="d-block">Logged in as:
+                        <strong class="text-warning">{{ Auth::user()->role }}</strong>
+                    <p class="text-success m-0 p-0">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
+                    </router-link>
                 </div>
             </div>
 
@@ -207,6 +210,7 @@
         window.user = @json(auth()->user())
     </script>
 @endauth
-<script src="/js/app.js"></script>
-
+<script src="/js/app.js">
+</script>
+</body>
 </html>

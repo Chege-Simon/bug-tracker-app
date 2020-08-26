@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Project;
 use App\User;
 use Illuminate\Http\Request;
-
+use Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
@@ -27,9 +27,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        if(\Gate::allows('isAdmin') || \Gate::allows('isProject_manager') ||
-            \Gate::allows('isDeveloper'))
-            $projects = Project::with('users')->get();
+        $projects = Project::with('users')->get();
         return response()->json($projects);
     }
 
@@ -42,16 +40,18 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'project_name' => 'unique:projects|required|string|max:255',
-            'project_description' => 'required|string|max:255',
+            'project_name' => 'unique:projects|required|string|max:1000',
+            'project_description' => 'required|string|max:5000',
             'project_manager' => 'required|integer',
 
         ]);
-//        return User::create($validatedData);
+        $maker = Auth::user()->id;
         Project::create([
             'project_name' => $request['project_name'],
             'project_description' => $request['project_description'],
             'project_manager' => $request['project_manager'],
+            'owner' => $request['owner'],
+            'created_by' => $maker,
             ]);
         $project_manager = $request['project_manager'];
         $project_name = $request['project_name'];

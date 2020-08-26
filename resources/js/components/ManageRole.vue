@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Reassign Project Role To Users</h3>
+                        <h3 class="card-title">All Users And Their Roles</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">

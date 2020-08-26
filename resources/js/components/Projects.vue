@@ -111,6 +111,21 @@
                                     <!-- form start -->
                                     <form @submit.prevent="newProject" class="m-2">
                                         <div class="form-group">
+                                            <label class="form-check-label"
+                                                   for="owner">Project
+                                                Owner</label>
+                                            <input v-model="form.owner"
+                                                   type="text"
+                                                   name="owner"
+                                                   id="owner"
+                                                   placeholder="Owner"
+                                                   class="form-control"
+                                                   :class="{ 'is-invalid':
+                                                   form.errors.has('owner') }">
+                                            <has-error :form="form"
+                                                       field="owner"></has-error>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="form-check-label" for="project_name">Project Name</label>
                                             <input v-model="form.project_name" type="text" name="project_name" id="project_name"
                                                    placeholder="Project Name"
@@ -211,6 +226,7 @@
                 current_project:'',
                 projects:{},
                 form: new Form({
+                    owner:'',
                     project_name: '',
                     project_description: '',
                     users: '',

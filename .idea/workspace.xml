@@ -223,7 +223,8 @@
       <workItem from="1597477275710" duration="36392000" />
       <workItem from="1597564285452" duration="25627000" />
       <workItem from="1597647570797" duration="3775000" />
-      <workItem from="1598328555108" duration="40046000" />
+      <workItem from="1598328555108" duration="40505000" />
+      <workItem from="1598424460873" duration="28776000" />
     </task>
     <servers />
   </component>
@@ -270,10 +271,10 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="480" y="171" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1600.870@0.0.1600.870" timestamp="1595772009757" />
-    <state x="2394" y="164" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598334381093">
+    <state x="2394" y="164" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598447263047">
       <screen x="1600" y="0" width="1366" height="738" />
     </state>
-    <state x="2394" y="164" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598334381093" />
+    <state x="2394" y="164" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598447263047" />
     <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870@0.0.1600.870" timestamp="1597573393830" />
     <state x="869" y="212" key="EditFileWatcherDialog" timestamp="1594187779656">
       <screen x="0" y="0" width="1600" height="868" />
@@ -347,6 +348,10 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="921" y="183" width="540" height="524" key="StructurePopup/0.0.1600.870@0.0.1600.870" timestamp="1594976964539" />
+    <state width="593" height="446" key="SwitcherDM" timestamp="1598424526096">
+      <screen x="1600" y="0" width="1366" height="738" />
+    </state>
+    <state width="593" height="446" key="SwitcherDM/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598424526096" />
     <state x="441" y="161" width="700" height="530" key="recent.locations.popup" timestamp="1595671244492">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
@@ -355,10 +360,11 @@
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="456" y="198" key="run.anything.popup/0.0.1600.870@0.0.1600.870" timestamp="1594990118110" />
-    <state x="863" y="182" width="672" height="680" key="search.everywhere.popup" timestamp="1597501178871">
-      <screen x="0" y="0" width="1600" height="870" />
+    <state x="2337" y="154" width="670" height="577" key="search.everywhere.popup" timestamp="1598437664181">
+      <screen x="1600" y="0" width="1366" height="738" />
     </state>
     <state x="863" y="182" width="672" height="678" key="search.everywhere.popup/0.0.1600.868@0.0.1600.868" timestamp="1594662665317" />
+    <state x="2337" y="154" width="670" height="577" key="search.everywhere.popup/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598437664181" />
     <state x="863" y="182" width="672" height="680" key="search.everywhere.popup/0.0.1600.870@0.0.1600.870" timestamp="1597501178871" />
   </component>
 </project>

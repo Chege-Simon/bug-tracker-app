@@ -10,7 +10,7 @@
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            This project will allow assignment of projects, tickets and reporting of issues.This is an application that will used to facilitate agile methodology way in software development
                         </div>
                     @endif
 
