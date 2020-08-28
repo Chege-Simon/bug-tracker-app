@@ -1,6 +1,5 @@
 <template>
-        <div class="justify-content-center mt-5 row">
-            <div class="col-md-6">
+        <div class="justify-content-center mt-5">
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
@@ -18,10 +17,16 @@
                             <thead>
                             <tr>
                                 <th style="width: 1%">
-                                    #id
+                                    #
                                 </th>
                                 <th style="width: 20%">
                                     Project Name
+                                </th>
+                                <th style="width: 30%">
+                                    Team Members
+                                </th>
+                                <th>
+                                    Project Progress
                                 </th>
                                 <th style="width: 8%" class="text-center">
                                     Status
@@ -31,24 +36,65 @@
                                 </th>
                             </tr>
                             </thead>
-                            <tbody v-for="person in users"
-                                   :key="person.id" v-if="person.id === me.id">
-                            <tr v-for="project in person.projects"
-                                :key="project.id">
+                            <tbody>
+                            <tr v-for="project in projects" :key="project.id">
                                 <td>{{ project.id }}</td>
                                 <td>{{ project.project_name }}</td>
+                                <td class="d-flex flex-row">
+                                    <div v-for="user in project.users" :key="user.id">
+                                        <div class="p-2">
+                                            {{ user.first_name }} {{
+                                            user.last_name }},
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="project_progress">
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-green"
+                                             role="progressbar"
+                                             aria-volumemin="0"
+                                             aria-volumemax="100"
+                                             :style="{width: percent + '%'}">
+                                        </div>
+                                    </div>
+                                    <small>
+                                        {{calculateTickets(project)}} % Complete
+                                    </small>
+                                </td>
                                 <td class="project-state">
-                                    <span class="badge badge-success">Success</span>
+                                    <span class="badge badge-warning"
+                                          v-if="project.status === 'closed'">Closed
+                                    </span>
+                                    <span class="badge badge-success"
+                                          v-else>Open
+                                    </span>
                                 </td>
                                 <td class="text-center">
                                     <a href="#" @click="viewProject(project.id)"
                                        class="nav-link">
                                         <i class="nav-icon fa fa-info"
                                            data-toggle="tooltip"
-                                           title="View project details">
-                                            details
+                                           title="View project details"> Details
                                         </i>
                                     </a>
+                                    <a href="#"
+                                       v-if="$gate.isAdmin()"
+                                       @click="showEditProjectModal(project)">
+                                        <i
+                                            class="nav-icon fa fa-pencil-alt text-dark p-1" data-toggle="tooltip" title="Edit the project details"></i>
+                                    </a>
+                                    <a href="#"
+                                       @click="deleteProject(project.id)"
+                                       v-if="$gate.isAdmin()">
+                                        <i
+                                            class="fa fa-trash text-danger p-1" data-toggle="tooltip" title="Delete the project"></i>
+                                    </a>
+                                    <a href="#" @click="showAddUserModal(project.id, project.project_name)" v-if="$gate.isProjectmanager()">
+                                        <i
+                                            class="fa fa-user-plus text-success p-1" data-toggle="tooltip" title="Add Users to the projects"></i>
+                                    </a>
+                                    <!--                                    <button class="btn btn-success" >New Project <i class="fa fa-briefcase fa-fw"></i></button>-->
                                 </td>
                             </tr>
 
@@ -58,10 +104,6 @@
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
-            </div>
-            <div class="col-md-4">
-            </div>
-
     </div>
 </template>
 
@@ -77,6 +119,10 @@
         },
         data() {
             return {
+                percent:0,
+                num_of_incomplete_tickets:0,
+                num_of_complete_ticket:0,
+                fraction:0,
                 selectedUsers: [],
                 users: {},
                 me: {},
@@ -91,7 +137,23 @@
                 })
             }
         },
+        computed:{
+        },
         methods: {
+            calculateTickets(project){
+                let num = 0;
+                project.tickets.map(function(project){
+                    if(project.status === 'complete' ){
+                        num = num+1;
+                    }
+                })
+                this.num_of_complete_tickets = num;
+                // return
+                // ((this.num_of_complete_tickets/project.tickets.length)*100).toFixed(4);
+                let fraction = (this.num_of_complete_tickets/project.tickets.length)*100
+                this.percent = fraction.toFixed(0);
+                return fraction.toFixed(0);
+            },
             viewProject(project_id){
                 const Pid = project_id;
                 this.$router.push({path:'/projectdetails', query: {
@@ -108,9 +170,18 @@
                     .then((response) => {
                         this.me = response.data;
                     });
-            }
+            },
+            loadProjects(){
+                this.$Progress.start();
+                axios.get('api/project')
+                    .then((response) =>{
+                        this.projects = response.data;
+                    });
+                this.$Progress.finish();
+            },
         },
         mounted() {
+            this.loadProjects()
             this.loadUsers();
             Fire.$on('refreshProjectList', () => {
                 this.loadUsers();

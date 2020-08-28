@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
+    <div class="container" >
 
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mt-5" v-if="$gate.isSupreme()">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -46,7 +46,7 @@
                 <!-- /.card -->
             </div>
         </div>
-
+        <not-found v-else></not-found>
         <!-- Modal -->
         <div class="modal fade" id="editUserRole" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

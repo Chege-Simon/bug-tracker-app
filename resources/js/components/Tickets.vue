@@ -45,14 +45,29 @@
                                 <td>{{ ticket.ticket_description }}</td>
                                 <td>{{ ticket.user.first_name }} {{ ticket.user.last_name }}</td>
                                 <td class="project-state">
-                                    <span class="badge badge-success">Success</span>
+                                    <span class="badge badge-success"
+                                          v-if="ticket.status === 'complete'">complete
+                                    </span>
+                                    <span class="badge badge-warning"
+                                          v-else-if="ticket.status ===
+                                          'in_line'">Waiting List
+                                    </span>
+                                    <span class="badge badge-primary"
+                                          v-else-if="ticket.status ===
+                                          'in_progress'">In Progress
+                                    </span>
                                 </td>
                                 <td class="text-center">
-                                    <a href="#" @click="deleteUser(ticket.id)">
-                                        <i class="fa fa-folder text-primary p-1">View</i>
+
+                                    <a href='#'@click="">
+                                        <i
+                                            class="nav-icon fa fa-paperclip text-dark p-1" data-toggle="tooltip" title="View Attachments"></i>
                                     </a>
-                                    <a href="#" @click="deleteUser(ticket.id)" v-if="$gate.isAdminOrisProjectmanager()">
-                                        <i class="fa fa-trash text-danger p-1">Delete</i>
+
+                                    <a href="#"
+                                       @click="deleteTicket(ticket.id)">
+                                        <i
+                                            class="nav-icon fa fa-trash text-danger p-1" data-toggle="tooltip" title="Delete Ticket"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -140,8 +155,9 @@
                                             <select class="custom-select form-control"
                                                     v-model="theProject">
                                                 <option v-for="project in projects" :key="project.id" :value="project.id" id="project"
-                                                        v-if="project.project_manager === user.id">
-                                                    {{ project.project_name }} {{ project.id }} -- {{ project.project_manager}}
+                                                        v-if="project.project_manager === user.id || project.created_by === user.id">
+                                                    {{ project.project_name
+                                                    }}
                                                 </option>
                                             </select>
 <!--                                            <div v-for="project in projects" :key="project.id" id="project" v-if="project.project_manager === user.id">-->
@@ -216,7 +232,7 @@
                     .then(() =>{
                         Toast.fire({
                             icon: 'success',
-                            title: 'Edited user details successfully'
+                            title: 'New ticket created successfully'
                         })
                     });
                 this.form.clear();
@@ -224,7 +240,7 @@
                 this.$Progress.finish();
 
             },
-            deleteUser(id){
+            deleteTicket(id){
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -235,16 +251,16 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     //send request to server to delete the user
-                    this.form.delete('api/user/'+id)
+                    this.form.delete('api/ticket/'+id)
                         .then(()=>{
                             if (result.value) {
                                 Swal.fire(
                                     'Deleted!',
-                                    'Your file has been deleted.',
+                                    'Ticket deleted successfully.',
                                     'success'
                                 )
                             }
-                            Fire.$emit('refreshUserList');
+                            Fire.$emit('refreshProjectList');
                         })
                         .catch(()=>{
                             Swal.fire(
@@ -279,28 +295,6 @@
                     });
                 this.$Progress.finish();
             },
-            newProject(){
-                // Submit the form via a POST request
-                this.$Progress.start();
-                this.form.post('/api/project')
-                    .then(()=>{
-                        $('#newProject').modal('hide')
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Created new project Successfully'
-                        })
-                        Fire.$emit('refreshUserList');
-                        this.$Progress.finish();
-                    })
-                    .catch(()=>{
-                        $('#newProject').modal('hide')
-                        Toast.fire({
-                            icon: 'warning',
-                            title: 'Oops... Something want wrong while adding user.'
-                        })
-                        this.$Progress.fail();
-                    })
-            }
         },
         mounted() {
             this.loadProjects();

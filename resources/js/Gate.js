@@ -5,6 +5,9 @@ export default class Gate {
     isAdmin(){
         return this.user.role === 'admin';
     }
+    isSupreme(){
+        return this.user.role === 'supreme';
+    }
     isUser(){
         return this.user.role === 'user';
     }

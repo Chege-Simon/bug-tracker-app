@@ -6,7 +6,14 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Projects Detail</h3>
-
+                    <div  class="card-title ml-5 pl-5">
+                                    <span class="badge badge-warning"
+                                          v-if="project.status === 'closed'">Project is Closed
+                                    </span>
+                        <span class="badge badge-success"
+                              v-else>Project is Open
+                                    </span>
+                    </div>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fas fa-minus"></i></button>
@@ -89,7 +96,7 @@
                             <br>
                             <div class="text-muted">
                                 <p class="text-sm">Client Company
-                                    <b class="d-block">Deveint Inc</b>
+                                    <b class="d-block">{{ project.owner }}</b>
                                 </p>
                                 <p class="text-sm" v-for="user in users"
                                    v-if="user.id === project.project_manager">Project
@@ -117,12 +124,19 @@
                                     <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-file-word"></i> Contract-10_12_2014.docx</a>
                                 </li>
                             </ul>
-                            <div class="text-center mt-5 mb-3"
-                                 v-show="$gate.isAdmin()">
-                                <a href="#" class="btn btn-sm btn-primary">Add files</a>
-                                <a href="#"
-                                   class="btn btn-sm btn-warning">Close Project
-                                </a>
+                            <div class="text-center mt-5 mb-3">
+                                <a href="#" class="btn btn-sm btn-primary"
+                                   v-show="$gate.isAdminOrisProjectmanager()">Add files</a>
+                                <span v-show="$gate.isAdmin()">
+                                    <a href="#"
+                                       @click="showUpdateStatusModal(project)"v-if="project.status === 'open'"
+                                       class="btn btn-sm btn-warning">Close Project
+                                    </a>
+                                    <a href="#"
+                                       @click="showUpdateStatusModal(project)"v-else
+                                       class="btn btn-sm btn-success">Open Project
+                                    </a>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -130,7 +144,53 @@
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
-
+            <!--Update project Status Modal -->
+            <div class="modal fade" id="updateStatus" tabindex="-1" role="dialog" aria-labelledby="newProject" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updateStatusTitle">
+                                Update Project Status</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Update {{
+                                        project.project_name
+                                        }} Project
+                                        Status</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <form
+                                    @submit.prevent="updateStatus(project.id)" class="m-2">
+                                    <div class="form-group">
+                                        <label
+                                            class="form-check-label">Select
+                                            Project
+                                            Status</label>
+                                        <select class="custom-select form-control"
+                                                v-model="form.project_status">
+                                            <option value="open">open</option>
+                                            <option value="closed" >close
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-10 text-right">
+                                            <button type="submit" class="btn btn-primary"> <i class="fa fa-cog fa-fw"></i> Action</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- /.content -->
     </div>
@@ -153,57 +213,38 @@
                 form: new Form({
                     project_name: '',
                     project_description: '',
+                    project_status:'',
                     users: '',
-                    project: '',
                     project_manager: '',
                 })
             }
         },
         methods: {
-            addUsers() {
+            showUpdateStatusModal(project){
+                $('#updateStatus').modal('show');
+                this.form.fill(project);
+            },
+            updateStatus(id){
+                // Submit the form via a POST request
+                $('#updateStatus').modal('hide');
                 this.$Progress.start();
-                $('#addUsers').modal('hide');
-                axios.post('api/miscellaneous/', [this.selectedUsers, this.current_project])
-                    .then(() => {
+                this.form.put('/api/project/'+id)
+                    .then(()=>{
                         Toast.fire({
                             icon: 'success',
-                            title: 'Edited user details successfully'
+                            title: 'Project Status updated successfully'
                         })
-                    });
-                Fire.$emit('refreshProjectList');
-                this.$Progress.finish();
-
-            },
-            deleteUser(id) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    //send request to server to delete the user
-                    this.form.delete('api/user/' + id)
-                        .then(() => {
-                            if (result.value) {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
-                                    'success'
-                                )
-                            }
-                            Fire.$emit('refreshUserList');
+                        Fire.$emit('fetchProjectDetails');
+                        this.form.reset();
+                        this.$Progress.finish();
+                    })
+                    .catch(()=>{
+                        Toast.fire({
+                            icon: 'warning',
+                            title: 'Oops...Something went wrong'
                         })
-                        .catch(() => {
-                            Swal.fire(
-                                'Failed!',
-                                'Oops... Something want wrong while deleting.',
-                                'warning'
-                            )
-                        })
-                })
+                        this.$Progress.fail();
+                    })
             },
             loadProject() {
                 this.$Progress.start();

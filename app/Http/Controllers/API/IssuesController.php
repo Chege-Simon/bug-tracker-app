@@ -38,7 +38,14 @@ class IssuesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        return $request;
+
+        return Issue::create($request->all());
+//        return Issue::create([
+//            'issue_description' => $request[0],
+//            'project_id' => $request[1],
+//            'user_id' => $request[2],
+//        ]);
     }
 
     /**

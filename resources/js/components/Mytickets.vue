@@ -4,7 +4,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">My Tickets</h3>
+                    <h3 class="card-title">My Pending Tickets</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -36,21 +36,36 @@
                         </thead>
                         <tbody>
                         <tr v-for="ticket in tickets" :key="ticket.id"
-                            v-if="ticket.user.id === user.id">
+                            v-if="ticket.user.id === user.id && ticket.status
+                             ==='in_line'">
                             <td>{{ ticket.id }}</td>
                             <td>{{ ticket.project.project_name }}</td>
                             <td>{{ ticket.ticket_description }}</td>
                             <td class="project-state">
-                                <span class="badge badge-success">Success</span>
+                                    <span class="badge badge-success"
+                                          v-if="ticket.status === 'complete'">complete
+                                    </span>
+                                <span class="badge badge-warning"
+                                      v-else-if="ticket.status ===
+                                          'in_line'">Waiting List
+                                    </span>
+                                <span class="badge badge-primary"
+                                      v-else-if="ticket.status ===
+                                          'in_progress'">In Progress
+                                    </span>
                             </td>
                             <td class="text-center">
                                 <a href="#" @click="deleteUser(ticket.id)">
                                     <i class="nav-icon fa fa-paperclip"
                                     data-toggle="tooltip"
-                                    title="View attached files">attchments</i>
+                                    title="View attached files"></i>
                                 </a>
-                                <a href="#" @click="deleteUser(ticket.id)" v-if="$gate.isAdminOrisProjectmanager()">
-                                    <i class="fa fa-trash text-danger p-1">Delete</i>
+                                <a href="#"
+                                   @click="showUpdateStatusModal(ticket)">
+                                    <i
+                                        class="nav-icon fa fa-tasks pl-3 text-success"
+                                       data-toggle="tooltip"
+                                       title="Update Ticket Status"></i>
                                 </a>
                             </td>
                         </tr>
@@ -61,106 +76,202 @@
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
-            <!--project Modal -->
-            <div class="modal fade" id="newTicket" tabindex="-1" role="dialog" aria-labelledby="newTicket" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="newTicketTitle">New Ticket</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- general form elements -->
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">New Ticket</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <!-- form start -->
-                                <form @submit.prevent="newTicket" class="m-2">
-                                    <div class="form-group">
-                                        <label class="form-check-label" for="ticket_description">Ticket Description</label>
-                                        <input v-model="form.ticket_description" type="text" name="ticket_description" id="ticket_description"
-                                               placeholder="Ticket description"
-                                               class="form-control" :class="{ 'is-invalid': form.errors.has('ticket_description') }">
-                                        <has-error :form="form" field="ticket_description"></has-error>
-                                    </div>
+        </div>
+        <div class="col-md-6">
 
-                                    <div class="form-group">
-                                        <label class="form-check-label" for="project">Select Developer</label>
-                                        <select class="custom-select form-control"
-                                                v-model="theDeveloper">
-                                            <option v-for="developer in members" :key="developer.id" :value="developer.id" id="developer"
-                                                    v-if="developer.role === 'developer'">
-                                                {{ developer.first_name }} {{ developer.last_name }} -- {{ developer.role}}
-                                            </option>
-                                        </select>
-                                        <!--                                            <div v-for="project in projects" :key="project.id" id="project" v-if="project.project_manager === user.id">-->
-                                        <!--                                                <input v-model="theProject" type="checkbox" :value="project.id">-->
-                                        <!--                                                {{ project.project_name }} {{ project.id }} &#45;&#45; {{ project.project_manager}}-->
-                                        <!--                                            </div>-->
+            <div class="card" v-show="$gate.isDeveloper()">
+                <div class="card-header">
+                    <h3 class="card-title">My Tickets in Progress</h3>
 
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-10 text-right">
-                                            <button type="submit" class="btn btn-primary"> <i class="fa fa-cog fa-fw"></i> Action</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fas fa-minus"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fas fa-times"></i></button>
                     </div>
                 </div>
-            </div>
-            <!--User Modal -->
-            <div class="modal fade" id="selectProject" tabindex="-1" role="dialog" aria-labelledby="selectProject" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addUsersTitle">Select The Project</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- general form elements -->
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Select Project</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <!-- form start -->
-                                <form @submit.prevent="selectProject" class="m-2">
-                                    <div class="form-group">
-                                        <label class="form-check-label" for="project">Select Project</label>
-                                        <select class="custom-select form-control"
-                                                v-model="theProject">
-                                            <option v-for="project in projects" :key="project.id" :value="project.id" id="project"
-                                                    v-if="project.project_manager === user.id">
-                                                {{ project.project_name }} {{ project.id }} -- {{ project.project_manager}}
-                                            </option>
-                                        </select>
-                                        <!--                                            <div v-for="project in projects" :key="project.id" id="project" v-if="project.project_manager === user.id">-->
-                                        <!--                                                <input v-model="theProject" type="checkbox" :value="project.id">-->
-                                        <!--                                                {{ project.project_name }} {{ project.id }} &#45;&#45; {{ project.project_manager}}-->
-                                        <!--                                            </div>-->
-
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-10 text-right">
-                                            <button type="submit" class="btn btn-primary"> <i class="fa fa-cog fa-fw"></i> Action</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped projects">
+                        <thead>
+                        <tr>
+                            <th style="width: 1%">
+                                #id
+                            </th>
+                            <th style="width: 20%">
+                                Project Name
+                            </th>
+                            <th style="width: 30%">
+                                Ticket Description
+                            </th>
+                            <th style="width: 8%" class="text-center">
+                                Status
+                            </th>
+                            <th style="width: 20%" class="text-center">
+                                Actions
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="ticket in tickets" :key="ticket.id"
+                            v-if="ticket.user.id ===
+                                                user.id && ticket.status
+                                                ==='in_progress'">
+                            <td>{{ ticket.id }}</td>
+                            <td>{{ ticket.project.project_name }}</td>
+                            <td>{{ ticket.ticket_description }}</td>
+                            <td class="project-state">
+                                                    <span
+                                                        class="badge badge-success"
+                                                        v-if="ticket.status === 'complete'">complete
+                                                    </span>
+                                <span class="badge badge-warning"
+                                      v-else-if="ticket.status ===
+                                                          'in_line'">Waiting List
+                                                    </span>
+                                <span class="badge badge-primary"
+                                      v-else-if="ticket.status ===
+                                                          'in_progress'">In Progress
+                                                    </span>
+                            </td>
+                            <td class="text-center">
+                                <a href="#" @click="deleteUser(ticket.id)">
+                                    <i class="nav-icon fa fa-paperclip"
+                                       data-toggle="tooltip"
+                                       title="View attached files"></i>
+                                </a>
+                                <a href="#"
+                                   @click="showUpdateStatusModal(ticket)">
+                                    <i class="nav-icon fa fa-tasks pl-3 text-success"
+                                       data-toggle="tooltip"
+                                       title="Update Ticket Status"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <!-- /.card-body -->
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-8">
+
+            <div class="card" v-show="$gate.isDeveloper()">
+                <div class="card-header">
+                    <h3 class="card-title">My Completed Tickets</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fas fa-minus"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped projects">
+                        <thead>
+                        <tr>
+                            <th style="width: 1%">
+                                #id
+                            </th>
+                            <th style="width: 20%">
+                                Project Name
+                            </th>
+                            <th style="width: 30%">
+                                Ticket Description
+                            </th>
+                            <th style="width: 8%" class="text-center">
+                                Status
+                            </th>
+                            <th style="width: 20%" class="text-center">
+                                Actions
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="ticket in tickets" :key="ticket.id"
+                            v-if="ticket.user.id ===
+                                                user.id && ticket.status
+                                                ==='complete'">
+                            <td>{{ ticket.id }}</td>
+                            <td>{{ ticket.project.project_name }}</td>
+                            <td>{{ ticket.ticket_description }}</td>
+                            <td class="project-state">
+                                                    <span
+                                                        class="badge badge-success"
+                                                        v-if="ticket.status === 'complete'">complete
+                                                    </span>
+                                <span class="badge badge-warning"
+                                      v-else-if="ticket.status ===
+                                                          'in_line'">Waiting List
+                                                    </span>
+                                <span class="badge badge-primary"
+                                      v-else-if="ticket.status ===
+                                                          'in_progress'">In Progress
+                                                    </span>
+                            </td>
+                            <td class="text-center">
+                                <a href="#" @click="deleteUser(ticket.id)">
+                                    <i class="nav-icon fa fa-paperclip"
+                                       data-toggle="tooltip"
+                                       title="View attached files"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <!--Update ticket Status Modal -->
+        <div class="modal fade" id="updateStatus" tabindex="-1" role="dialog" aria-labelledby="newProject" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateStatusTitle">
+                            Update Project Status</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- general form elements -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Update ticket
+                                    Status</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form
+                                @submit.prevent="updateStatus(to_be_edited_ticket.id)"
+                                class="m-2">
+                                <div class="form-group">
+                                    <label
+                                        class="form-check-label">Select
+                                        Project
+                                        Status</label>
+                                    <select class="custom-select form-control"
+                                            v-model="form.ticket_status">
+                                        <option value="in_progress"
+                                                class="bg-gradient-primary p-3">In
+                                            Progress
+                                        </option>
+                                        <option value="complete"
+                                                class="bg-gradient-success p-3">
+                                            Complete</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 text-right">
+                                        <button type="submit" class="btn btn-primary"> <i class="fa fa-cog fa-fw"></i> Action</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -177,6 +288,7 @@
         },
         data() {
             return  {
+                to_be_edited_ticket:{},
                 tickets:{},
                 theDeveloper:'',
                 members:[],
@@ -185,6 +297,7 @@
                 current_project:'',
                 projects:{},
                 form: new Form({
+                    ticket_status:'',
                     ticket_description: '',
                     project_id: '',
                     developer_id: '',
@@ -192,6 +305,33 @@
             }
         },
         methods:{
+            showUpdateStatusModal(ticket){
+                $('#updateStatus').modal('show');
+                this.to_be_edited_ticket = ticket;
+                this.form.fill(ticket);
+            },
+            updateStatus(id){
+                // Submit the form via a POST request
+                $('#updateStatus').modal('hide');
+                this.$Progress.start();
+                this.form.put('/api/ticket/'+id)
+                    .then(()=>{
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Ticket Status updated successfully'
+                        })
+                        Fire.$emit('refreshProjectList');
+                        this.form.reset();
+                        this.$Progress.finish();
+                    })
+                    .catch(()=>{
+                        Toast.fire({
+                            icon: 'warning',
+                            title: 'Oops...Something went wrong'
+                        })
+                        this.$Progress.fail();
+                    })
+            },
             selectProject(){
                 $('#selectProject').modal('hide');
                 this.getDevelopers();
@@ -223,37 +363,6 @@
                 Fire.$emit('refreshProjectList');
                 this.$Progress.finish();
 
-            },
-            deleteUser(id){
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    //send request to server to delete the user
-                    this.form.delete('api/user/'+id)
-                        .then(()=>{
-                            if (result.value) {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
-                                    'success'
-                                )
-                            }
-                            Fire.$emit('refreshUserList');
-                        })
-                        .catch(()=>{
-                            Swal.fire(
-                                'Failed!',
-                                'Oops... Something want wrong while deleting.',
-                                'warning'
-                            )
-                        })
-                })
             },
             loadProjects(){
                 this.$Progress.start();

@@ -65,7 +65,8 @@ class TicketController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ticket = Ticket::findOrFail($id);
+        $ticket->where('id', $id)->update(['status'=>$request->ticket_status]);
     }
 
     /**
@@ -76,6 +77,10 @@ class TicketController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('isAdminOrisProject_manager');
+        $ticket = Ticket::findOrFail($id);
+
+        $ticket->delete();
+        return ['message' => 'Ticket Deleted'];
     }
 }

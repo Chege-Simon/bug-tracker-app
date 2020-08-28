@@ -107,7 +107,7 @@
                             </p>
                         </router-link>
                     </li>
-                    @canany(['isAdmin', 'isProject_manager'])
+                    @canany(['isAdmin', 'isProject_manager','isSupreme'])
                     <li class="nav-item has-treeview">
                         <a class="nav-link bg-warning">
                             <i class="nav-icon fas fa-th-large"></i>
@@ -117,6 +117,7 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            @can('isSupreme')
                             <li class="nav-item">
                                 <router-link to="/manageroles" href="#" class="nav-link">
                                     <i class="fa fa-cogs nav-icon"></i>
@@ -129,6 +130,7 @@
                                     <p>Manage Project Users</p>
                                 </router-link>
                             </li>
+                            @endcan
                             <li class="nav-item">
                                 <router-link to="/projects" class="nav-link ">
                                     <i class="fa fa-briefcase nav-icon"></i>

@@ -27,7 +27,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with('users')->get();
+        $projects = Project::with('users')->with('tickets')->get();
         return response()->json($projects);
     }
 
@@ -70,7 +70,7 @@ class ProjectController extends Controller
     {
 
 //        $project = Project::findOrFail($id);
-        $project = Project::with('tickets')->find($id);
+        $project = Project::with('tickets')->with('issues')->find($id);
         return response()->json($project);
     }
 
@@ -83,7 +83,15 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $project=Project::findOrFail($id);
+        $this->validate($request,[
+
+            'owner' => 'string|max:255',
+            'project_name' => 'string|max:255',
+            'project_description' => 'string|max:5000',
+        ]);
+        $project->update($request->all());
+        $project->where('id',$id)->update(['status'=> $request->project_status]);
     }
 
     /**
@@ -94,6 +102,9 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $project = Project::findOrFail($id);
+        $project->delete();
+
+        return ['message' => 'Project Deleted'];
     }
 }

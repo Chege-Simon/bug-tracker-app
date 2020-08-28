@@ -96,12 +96,6 @@
                                     </select>
                                     <has-error :form="form" field="role"></has-error>
                                 </div>
-                                <div class="form-group hidden">
-                                    <label class="form-check-label" for="project">Project</label>
-                                    <input v-model="form.project" type="text" name="project" id="project"
-                                           class="form-control" :class="{ 'is-invalid': form.errors.has('project') }">
-                                    <has-error :form="form" field="project"></has-error>
-                                </div>
                                 <div class="form-group row">
                                     <div class="col-sm-10 text-right">
                                         <button type="submit" class="btn btn-primary"> <i class="fa fa-cog fa-fw"></i> Action</button>
@@ -130,8 +124,6 @@
                     last_name: '',
                     email: '',
                     role: '',
-                    project: '',
-                    password: '',
                     remember: false
                 })
             }

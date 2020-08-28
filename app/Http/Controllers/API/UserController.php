@@ -41,7 +41,6 @@ class UserController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'project' => 'required|string|max:255',
 
         ]);
 //        return User::create($validatedData);
@@ -50,7 +49,7 @@ class UserController extends Controller
             'last_name' => $request['last_name'],
             'role' => 'user',
             'email' => $request['email'],
-            'password' => Hash::make('main2020'),
+            'password' => Hash::make('tracker2020'),
         ]);
     }
 
@@ -94,7 +93,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('isAdmin');
+        $this->authorize('isSupreme');
         $user = User::findOrFail($id);
 
         //delete user
