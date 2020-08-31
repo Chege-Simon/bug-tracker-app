@@ -16,9 +16,6 @@
                         <table class="table table-striped projects">
                             <thead>
                             <tr>
-                                <th style="width: 1%">
-                                    #
-                                </th>
                                 <th style="width: 20%">
                                     Project Name
                                 </th>
@@ -38,7 +35,6 @@
                             </thead>
                             <tbody>
                             <tr v-for="project in projects" :key="project.id">
-                                <td>{{ project.id }}</td>
                                 <td>{{ project.project_name }}</td>
                                 <td class="d-flex flex-row">
                                     <div v-for="user in project.users" :key="user.id">

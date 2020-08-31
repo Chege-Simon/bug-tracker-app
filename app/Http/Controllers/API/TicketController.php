@@ -25,7 +25,8 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::with('user')->with('project')->get();
+        $tickets = Ticket::with('user')->with('project')->orderBy('updated_at','desc')
+            ->get();
         return response()->json($tickets);
     }
 
@@ -42,6 +43,7 @@ class TicketController extends Controller
             'ticket_description' => $request[0],
             'project_id' => $request[1],
             'user_id' => $request[2],
+            'priority' => $request[3],
         ]);
     }
 

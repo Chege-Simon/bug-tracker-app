@@ -5,7 +5,20 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">All Users</h3>
-
+                        <!-- SEARCH FORM -->
+<!--                        <form class="card-title text-left ml-5">-->
+<!--                            <div class="input-group input-group-sm">-->
+<!--                                <input-->
+<!--                                    class="form-control form-control-navbar"type="search"-->
+<!--                                    placeholder="Search by last name"-->
+<!--                                    aria-label="Search">-->
+<!--                                <div class="input-group-append">-->
+<!--                                    <button class="btn btn-navbar" type="submit">-->
+<!--                                        <i class="fas fa-search"></i>-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </form>-->
                         <div class="card-tools text-right">
                             <button class="btn btn-success" data-toggle="modal" data-target="#addUser">Add User <i class="fa fa-user-plus fa-fw"></i></button>
                         </div>
@@ -24,7 +37,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="user in users" :key="user.id" v-if="user.role == 'user'">
+                            <tr v-for="user in users" :key="user.id"
+                                v-if="user.role == 'user'">
                                 <td>{{ user.id }}</td>
                                 <td>{{ user.first_name }}</td>
                                 <td>{{ user.last_name }}</td>

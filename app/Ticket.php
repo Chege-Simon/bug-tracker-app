@@ -11,7 +11,7 @@ use App\Project;
 class Ticket extends Model
 {
     protected $fillable = [
-        'ticket_description','project_id', 'user_id','status',
+        'ticket_description','project_id', 'user_id','status','priority',
     ];
 
     public function user()

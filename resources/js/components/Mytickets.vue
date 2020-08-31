@@ -17,9 +17,6 @@
                     <table class="table table-striped projects">
                         <thead>
                         <tr>
-                            <th style="width: 1%">
-                                #id
-                            </th>
                             <th style="width: 20%">
                                 Project Name
                             </th>
@@ -27,9 +24,12 @@
                                 Ticket Description
                             </th>
                             <th style="width: 8%" class="text-center">
+                                Priority
+                            </th>
+                            <th style="width: 8%" class="text-center">
                                 Status
                             </th>
-                            <th style="width: 20%" class="text-center">
+                            <th style="width: 5%" class="text-center">
                                 Actions
                             </th>
                         </tr>
@@ -38,9 +38,21 @@
                         <tr v-for="ticket in tickets" :key="ticket.id"
                             v-if="ticket.user.id === user.id && ticket.status
                              ==='in_line'">
-                            <td>{{ ticket.id }}</td>
                             <td>{{ ticket.project.project_name }}</td>
                             <td>{{ ticket.ticket_description }}</td>
+                            <td class="project-state">
+                                    <span class="badge badge-danger"
+                                          v-if="ticket.priority === 'high'">High
+                                    </span>
+                                <span class="badge badge-warning"
+                                      v-else-if="ticket.priority ===
+                                          'medium'"> Medium
+                                    </span>
+                                <span class="badge badge-info"
+                                      v-else-if="ticket.priority ===
+                                          'low'">Low
+                                    </span>
+                            </td>
                             <td class="project-state">
                                     <span class="badge badge-success"
                                           v-if="ticket.status === 'complete'">complete
@@ -94,9 +106,6 @@
                     <table class="table table-striped projects">
                         <thead>
                         <tr>
-                            <th style="width: 1%">
-                                #id
-                            </th>
                             <th style="width: 20%">
                                 Project Name
                             </th>
@@ -104,9 +113,12 @@
                                 Ticket Description
                             </th>
                             <th style="width: 8%" class="text-center">
+                                Priority
+                            </th>
+                            <th style="width: 8%" class="text-center">
                                 Status
                             </th>
-                            <th style="width: 20%" class="text-center">
+                            <th style="width: 5%" class="text-center">
                                 Actions
                             </th>
                         </tr>
@@ -116,9 +128,21 @@
                             v-if="ticket.user.id ===
                                                 user.id && ticket.status
                                                 ==='in_progress'">
-                            <td>{{ ticket.id }}</td>
                             <td>{{ ticket.project.project_name }}</td>
                             <td>{{ ticket.ticket_description }}</td>
+                            <td class="project-state">
+                                    <span class="badge badge-danger"
+                                          v-if="ticket.priority === 'high'">High
+                                    </span>
+                                <span class="badge badge-warning"
+                                      v-else-if="ticket.priority ===
+                                          'medium'"> Medium
+                                    </span>
+                                <span class="badge badge-info"
+                                      v-else-if="ticket.priority ===
+                                          'low'">Low
+                                    </span>
+                            </td>
                             <td class="project-state">
                                                     <span
                                                         class="badge badge-success"
@@ -170,9 +194,6 @@
                     <table class="table table-striped projects">
                         <thead>
                         <tr>
-                            <th style="width: 1%">
-                                #id
-                            </th>
                             <th style="width: 20%">
                                 Project Name
                             </th>
@@ -180,9 +201,12 @@
                                 Ticket Description
                             </th>
                             <th style="width: 8%" class="text-center">
+                                Priority
+                            </th>
+                            <th style="width: 8%" class="text-center">
                                 Status
                             </th>
-                            <th style="width: 20%" class="text-center">
+                            <th style="width: 5%" class="text-center">
                                 Actions
                             </th>
                         </tr>
@@ -192,9 +216,21 @@
                             v-if="ticket.user.id ===
                                                 user.id && ticket.status
                                                 ==='complete'">
-                            <td>{{ ticket.id }}</td>
                             <td>{{ ticket.project.project_name }}</td>
                             <td>{{ ticket.ticket_description }}</td>
+                            <td class="project-state">
+                                    <span class="badge badge-danger"
+                                          v-if="ticket.priority === 'high'">High
+                                    </span>
+                                <span class="badge badge-warning"
+                                      v-else-if="ticket.priority ===
+                                          'medium'"> Medium
+                                    </span>
+                                <span class="badge badge-info"
+                                      v-else-if="ticket.priority ===
+                                          'low'">Low
+                                    </span>
+                            </td>
                             <td class="project-state">
                                                     <span
                                                         class="badge badge-success"

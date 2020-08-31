@@ -54,10 +54,13 @@ class ProjectController extends Controller
             'created_by' => $maker,
             ]);
         $project_manager = $request['project_manager'];
+        $created_by = $maker;
         $project_name = $request['project_name'];
         $project = DB::table('projects')->where('project_name',$project_name)->select('id')->first();
         $project_id = $project->id;
-        return DB::table('project_user')->insert(['user_id' => $project_manager,'project_id' => $project_id]);
+        DB::table('project_user')->insert(['user_id' => $project_manager,'project_id' => $project_id]);
+        DB::table('project_user')->insert(['user_id' => $created_by,'project_id' => $project_id]);
+        return ['message'=>'project created successfully'];
     }
 
     /**

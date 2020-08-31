@@ -18,9 +18,6 @@
                         <table class="table table-striped projects">
                             <thead>
                             <tr>
-                                <th style="width: 1%">
-                                    #id
-                                </th>
                                 <th style="width: 20%">
                                     Project Name
                                 </th>
@@ -29,6 +26,9 @@
                                 </th>
                                 <th>
                                     Developer
+                                </th>
+                                <th style="width: 8%" class="text-center">
+                                    Priority
                                 </th>
                                 <th style="width: 8%" class="text-center">
                                     Status
@@ -40,10 +40,22 @@
                             </thead>
                             <tbody>
                             <tr v-for="ticket in tickets" :key="ticket.id">
-                                <td>{{ ticket.id }}</td>
                                 <td>{{ ticket.project.project_name }}</td>
                                 <td>{{ ticket.ticket_description }}</td>
                                 <td>{{ ticket.user.first_name }} {{ ticket.user.last_name }}</td>
+                                <td class="project-state">
+                                    <span class="badge badge-danger"
+                                          v-if="ticket.priority === 'high'">High
+                                    </span>
+                                    <span class="badge badge-warning"
+                                          v-else-if="ticket.priority ===
+                                          'medium'"> Medium
+                                    </span>
+                                    <span class="badge badge-info"
+                                          v-else-if="ticket.priority ===
+                                          'low'">Low
+                                    </span>
+                                </td>
                                 <td class="project-state">
                                     <span class="badge badge-success"
                                           v-if="ticket.status === 'complete'">complete
@@ -104,7 +116,25 @@
                                                    class="form-control" :class="{ 'is-invalid': form.errors.has('ticket_description') }">
                                             <has-error :form="form" field="ticket_description"></has-error>
                                         </div>
-
+                                        <div class="form-group">
+                                            <label
+                                                class="form-check-label">
+                                                Select Priority</label>
+                                            <select class="custom-select form-control"
+                                                    v-model="form.priority">
+                                                <option value="high"
+                                                        class="bg-gradient-danger p-5">High
+                                                </option>
+                                                <option value="medium"
+                                                        class="bg-gradient-warning p-5">
+                                                    Medium
+                                                </option>
+                                                <option value="low"
+                                                        class="bg-gradient-info p-3">
+                                                    Low
+                                                </option>
+                                            </select>
+                                        </div>
                                         <div class="form-group">
                                             <label class="form-check-label" for="project">Select Developer</label>
                                             <select class="custom-select form-control"
@@ -204,6 +234,7 @@
                     ticket_description: '',
                     project_id: '',
                     developer_id: '',
+                    priority:'',
                 })
             }
         },
@@ -228,8 +259,10 @@
             newTicket(){
                 this.$Progress.start();
                 $('#newTicket').modal('hide');
-                axios.post('api/ticket/',[this.form.ticket_description, this.theProject, this.theDeveloper ])
+                axios.post('api/ticket/',[this.form.ticket_description,
+                    this.theProject, this.theDeveloper,this.form.priority ])
                     .then(() =>{
+                        this.form.reset();
                         Toast.fire({
                             icon: 'success',
                             title: 'New ticket created successfully'
