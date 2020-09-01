@@ -54,20 +54,41 @@
                                                    class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
                                             <has-error :form="form" field="email"></has-error>
                                         </div>
-
-<!--                                        <div class="form-group">-->
-<!--                                            <label>Upload profile picture</label>-->
-<!--                                            <input v-model="form.profile_pic" type="file" name='profile_pic'-->
-<!--                                                   class="custom-file-input form-control" :class="{ 'is-invalid': form.errors.has('profile_pic') }">-->
-<!--                                            <has-error :form="form" field="profile_pic"></has-error>-->
-<!--                                        </div>-->
-
                                         <div class="form-group row">
                                             <div class="col-sm-10">
                                                 <button type="submit" class="btn btn-primary"> <i class="fa fa-cog fa-fw"></i> Action</button>
                                             </div>
                                         </div>
                                     </form>
+<!--                                    <form-->
+<!--                                        @submit.prevent="updateProfile(user.id)">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <div class="form-group">-->
+<!--                                                <label-->
+<!--                                                    class="col-sm-12 control-label"-->
+<!--                                                    for="profile_pic"-->
+<!--                                                >Profile Picture-->
+<!--                                                </label>-->
+<!--                                                <div class="input-group">-->
+<!--                                                    <div class="custom-file">-->
+<!--                                                        <input-->
+<!--                                                            @change="updateProfilePic"-->
+<!--                                                               type="file"-->
+<!--                                                               class="form-input"-->
+<!--                                                               name="profile_pic"-->
+<!--                                                               id="profile_pic">-->
+<!--&lt;!&ndash;                                                        <label &ndash;&gt;-->
+<!--&lt;!&ndash;                                                            class="custom-file-label" for="profile_pic">Select Pic</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    </div>&ndash;&gt;-->
+<!--                                                    <div class="input-group-append">-->
+<!--                                                        <button type="submit"-->
+<!--                                                                class="btn btn-primary">Upload</button>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        </div>-->
+<!--                                    </form>-->
                                     <hr>
                                     <div class="row">
                                         <p class="col-md-8 text-left">want to change your password?</p>
@@ -103,12 +124,12 @@
         data() {
             return  {
                 me:{},
+                profile_pic:'',
                 form: new Form({
                     id:'',
                     first_name: '',
                     last_name: '',
                     email: '',
-                    profile_pic:''
                 })
             }
         },
@@ -140,7 +161,30 @@
                         this.me = response.data;
                     });
                 this.$Progress.finish();
-            }
+            },
+            // updateProfilePic(e){
+            //     let profile_pic = e.target.files[0];
+            // },
+            // updateProfile(id){
+            //     let formData = new FormData();
+            //     formData.append('profile_pic',this.profile_pic);
+            //     axios.put('/api/user/'+id, formData)
+            //         .then(()=>{
+            //             Toast.fire({
+            //                 icon: 'success',
+            //                 title: 'Profile picture updated successfully'
+            //             })
+            //             Fire.$emit('userInfo');
+            //             this.$Progress.finish();
+            //         })
+            //         .catch(()=>{
+            //             Toast.fire({
+            //                 icon: 'warning',
+            //                 title: 'Oops...Something went wrong'
+            //             })
+            //             this.$Progress.fail();
+            //         })
+            // }
         },
         mounted() {
             // this.updateUser(this.user.id);

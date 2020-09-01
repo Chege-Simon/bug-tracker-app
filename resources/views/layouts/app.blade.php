@@ -30,7 +30,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <span class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
@@ -50,14 +50,31 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                                <a id="navbarDropdown" class="nav-link
+                                dropdown-toggle" href=""
+                                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <span class="spinner-grow text-primary
+                                    spinner-grow-sm"
+                                          role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </span>
+                                    <strong>
+                                        <i class="fa fa-user">User Action</i>
+                                        <span class="caret"></span>
+                                    </strong>
 
+                                </a>
+{{--                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">--}}
+{{--                                </div>--}}
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a href="/dashboard"
+                                       class="dropdown-item"><strong>Back as:
+                                        </strong><i class="fa fa-user">{{ Auth::user()->first_name }} {{Auth::user()->last_name }}</i>
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-sign-out-alt mr-2"></i>
                                         {{ __('Logout') }}
                                     </a>
 

@@ -67,11 +67,11 @@
                                     </span>
                             </td>
                             <td class="text-center">
-                                <a href="#" @click="deleteUser(ticket.id)">
-                                    <i class="nav-icon fa fa-paperclip"
-                                    data-toggle="tooltip"
-                                    title="View attached files"></i>
-                                </a>
+<!--                                <a href="#" @click="deleteUser(ticket.id)">-->
+<!--                                    <i class="nav-icon fa fa-paperclip"-->
+<!--                                    data-toggle="tooltip"-->
+<!--                                    title="View attached files"></i>-->
+<!--                                </a>-->
                                 <a href="#"
                                    @click="showUpdateStatusModal(ticket)">
                                     <i
@@ -158,11 +158,11 @@
                                                     </span>
                             </td>
                             <td class="text-center">
-                                <a href="#" @click="deleteUser(ticket.id)">
-                                    <i class="nav-icon fa fa-paperclip"
-                                       data-toggle="tooltip"
-                                       title="View attached files"></i>
-                                </a>
+<!--                                <a href="#" @click="deleteUser(ticket.id)">-->
+<!--                                    <i class="nav-icon fa fa-paperclip"-->
+<!--                                       data-toggle="tooltip"-->
+<!--                                       title="View attached files"></i>-->
+<!--                                </a>-->
                                 <a href="#"
                                    @click="showUpdateStatusModal(ticket)">
                                     <i class="nav-icon fa fa-tasks pl-3 text-success"
@@ -206,9 +206,9 @@
                             <th style="width: 8%" class="text-center">
                                 Status
                             </th>
-                            <th style="width: 5%" class="text-center">
-                                Actions
-                            </th>
+<!--                            <th style="width: 5%" class="text-center">-->
+<!--                                Actions-->
+<!--                            </th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -245,13 +245,13 @@
                                                           'in_progress'">In Progress
                                                     </span>
                             </td>
-                            <td class="text-center">
-                                <a href="#" @click="deleteUser(ticket.id)">
-                                    <i class="nav-icon fa fa-paperclip"
-                                       data-toggle="tooltip"
-                                       title="View attached files"></i>
-                                </a>
-                            </td>
+<!--                            <td class="text-center">-->
+<!--                                <a href="#" @click="deleteUser(ticket.id)">-->
+<!--                                    <i class="nav-icon fa fa-paperclip"-->
+<!--                                       data-toggle="tooltip"-->
+<!--                                       title="View attached files"></i>-->
+<!--                                </a>-->
+<!--                            </td>-->
                         </tr>
                         </tbody>
                     </table>

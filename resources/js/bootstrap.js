@@ -1,3 +1,5 @@
+import NotFound from "./components/NotFound";
+
 window._ = require('lodash');
 
 /**
@@ -23,6 +25,38 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+import router from './router'
+
+axios.interceptors.response.use(
+    function(response) { return response;},
+    function(error) {
+        // handle error
+            if (error.response.status === 401) {
+                // router.push({path:'/login'}).then();
+                Toast.fire({
+                    icon: 'warning',
+                    title: 'Session Expired, reload to login'
+                })
+            }else if (error.response.status === 403){
+                // Router.push({name: 'dashboard'}).then(()=>{
+                //
+                // });
+                Toast.fire({
+                    icon: 'warning',
+                    title: 'Not Authorized to access'
+                })
+            }else if (error.response.status === 404){
+                // Router.push({path:'/dashboard'}).then(()=>{
+                //
+                // });
+                Toast.fire({
+                    icon: 'warning',
+                    title: 'Page Not Found'
+                })
+            }
+            return Promise.reject(error)
+        });
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

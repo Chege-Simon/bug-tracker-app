@@ -76,6 +76,10 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        $imageName = time().'.'.$request->image->getClientOriginalExtension();
+//        $request->image->move(public_path('images'), $imageName);
+//        $contents = file_get_contents($request->profile_pic->path());
+
         $user=User::findOrFail($id);
         $this->validate($request,[
             'first_name' => 'string|max:255',
@@ -83,6 +87,7 @@ class UserController extends Controller
             'email' => 'string|email|max:255|unique:users,email,'.$user->id,
         ]);
         $user->update($request->all());
+//        return $request;
     }
 
     /**

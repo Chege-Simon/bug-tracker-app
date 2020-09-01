@@ -108,13 +108,15 @@
                             @can('isSupreme')
                             <li class="nav-item">
                                 <router-link to="/manageroles" href="#" class="nav-link">
-                                    <i class="fa fa-cogs nav-icon"></i>
+                                    <i class="fa fa-cogs nav-icon
+                            text-warning"></i>
                                     <p>Role Assignment</p>
                                 </router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link to="/users" class="nav-link ">
-                                    <i class="fa fa-users nav-icon"></i>
+                                    <i class="fa fa-users nav-icon
+                                    text-success"></i>
                                     <p>Manage Users</p>
                                 </router-link>
                             </li>
@@ -136,7 +138,8 @@
                     @endcanany
                     <li class="nav-item">
                         <router-link to="/myprojects" class="nav-link ">
-                            <i class="fa fa-list-alt nav-icon"></i>
+                            <i class="fa fa-list-alt nav-icon
+                                    text-lime"></i>
                             <p>My Projects</p>
                         </router-link>
                     </li>
@@ -144,7 +147,7 @@
                     @can(['isDeveloper'])
                     <li class="nav-item">
                         <router-link to="/mytickets" class="nav-link">
-                            <i class="nav-icon fas fa-th-list"></i>
+                            <i class="nav-icon fas fa-th-list text-info"></i>
                             <p>
                                 My Tickets
                             </p>

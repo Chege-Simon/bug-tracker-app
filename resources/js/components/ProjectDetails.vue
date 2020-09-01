@@ -60,7 +60,10 @@
                                     <h4>Recent Activity</h4>
                                     <div class="post clearfix">
                                         <div class="user-block"
-                                             v-for="ticket in project.tickets">
+                                             v-for="ticket in
+                                             project.tickets.slice(3)"
+                                             v-if="ticket.status
+                                                      ==='complete'">
                                             <div>
                                                 <img
                                                     class="img-circle img-bordered-sm" src="/images/user.png" alt="user image">
@@ -72,7 +75,8 @@
                                                         href="#">{{user.first_name }} {{user.last_name }}</p>
                                                 </span>
                                                 <span class="description">{{
-                                                    ticket.created_at }}</span>
+                                                    ticket.created_at | formatDate
+                                                    }}</span>
                                             </div>
                                             <!-- /.user-block -->
                                             <p>
@@ -106,24 +110,24 @@
                                 </p>
                             </div>
 
-                            <h5 class="mt-5 text-muted">Project files</h5>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-file-word"></i> Functional-requirements.docx</a>
-                                </li>
-                                <li>
-                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-file-pdf"></i> UAT.pdf</a>
-                                </li>
-                                <li>
-                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-envelope"></i> Email-from-flatbal.mln</a>
-                                </li>
-                                <li>
-                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-image "></i> Logo.png</a>
-                                </li>
-                                <li>
-                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-file-word"></i> Contract-10_12_2014.docx</a>
-                                </li>
-                            </ul>
+<!--                            <h5 class="mt-5 text-muted">Project files</h5>-->
+<!--                            <ul class="list-unstyled">-->
+<!--                                <li>-->
+<!--                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-file-word"></i> Functional-requirements.docx</a>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-file-pdf"></i> UAT.pdf</a>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-envelope"></i> Email-from-flatbal.mln</a>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-image "></i> Logo.png</a>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-file-word"></i> Contract-10_12_2014.docx</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
                             <div class="text-center mt-5 mb-3">
                                 <a href="#" class="btn btn-sm btn-primary"
                                    v-show="$gate.isAdminOrisProjectmanager()">Add files</a>
