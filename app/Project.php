@@ -23,4 +23,8 @@ class Project extends Model
     {
         return $this->hasMany(Issue::class);
     }
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
 }

@@ -13,7 +13,9 @@
                                         <div class="card-body box-profile">
                                             <div class="text-center">
                                                 <img class="profile-user-img img-fluid img-circle"
-                                                     src="/images/user.png"
+                                                     :src="getProfilePhoto()"
+                                                     style="height: 90px;
+                                                     width: 90px"
                                                      alt="User profile picture">
                                             </div>
 
@@ -60,35 +62,33 @@
                                             </div>
                                         </div>
                                     </form>
-<!--                                    <form-->
-<!--                                        @submit.prevent="updateProfile(user.id)">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <div class="form-group">-->
-<!--                                                <label-->
-<!--                                                    class="col-sm-12 control-label"-->
-<!--                                                    for="profile_pic"-->
-<!--                                                >Profile Picture-->
-<!--                                                </label>-->
-<!--                                                <div class="input-group">-->
-<!--                                                    <div class="custom-file">-->
-<!--                                                        <input-->
-<!--                                                            @change="updateProfilePic"-->
-<!--                                                               type="file"-->
-<!--                                                               class="form-input"-->
-<!--                                                               name="profile_pic"-->
-<!--                                                               id="profile_pic">-->
-<!--&lt;!&ndash;                                                        <label &ndash;&gt;-->
-<!--&lt;!&ndash;                                                            class="custom-file-label" for="profile_pic">Select Pic</label>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                    </div>&ndash;&gt;-->
-<!--                                                    <div class="input-group-append">-->
-<!--                                                        <button type="submit"-->
-<!--                                                                class="btn btn-primary">Upload</button>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        </div>-->
-<!--                                    </form>-->
+                                    <form
+                                        @submit.prevent="updateProfile(user.id)">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label
+                                                    class="col-sm-12 control-label"
+                                                    for="profile_pic"
+                                                >Profile Picture
+                                                </label>
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        <input
+                                                            @change="updateProfilePic"
+                                                               type="file"
+                                                            accept="image/png, image/jpeg"
+                                                               class="form-input"
+                                                               name="profile_pic"
+                                                               id="profile_pic">
+                                                    <div class="input-group-append">
+                                                        <button type="submit"
+                                                                class="btn btn-primary">Upload</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </form>
                                     <hr>
                                     <div class="row">
                                         <p class="col-md-8 text-left">want to change your password?</p>
@@ -124,12 +124,12 @@
         data() {
             return  {
                 me:{},
-                profile_pic:'',
                 form: new Form({
                     id:'',
                     first_name: '',
                     last_name: '',
                     email: '',
+                    profile_pic:'',
                 })
             }
         },
@@ -162,29 +162,53 @@
                     });
                 this.$Progress.finish();
             },
-            // updateProfilePic(e){
-            //     let profile_pic = e.target.files[0];
-            // },
-            // updateProfile(id){
-            //     let formData = new FormData();
-            //     formData.append('profile_pic',this.profile_pic);
-            //     axios.put('/api/user/'+id, formData)
-            //         .then(()=>{
-            //             Toast.fire({
-            //                 icon: 'success',
-            //                 title: 'Profile picture updated successfully'
-            //             })
-            //             Fire.$emit('userInfo');
-            //             this.$Progress.finish();
-            //         })
-            //         .catch(()=>{
-            //             Toast.fire({
-            //                 icon: 'warning',
-            //                 title: 'Oops...Something went wrong'
-            //             })
-            //             this.$Progress.fail();
-            //         })
-            // }
+            updateProfilePic(e){
+                let file = e.target.files[0];
+                let reader = new FileReader();
+                let limit = 1024 * 1024 * 2;
+                if(file['size'] > limit){
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'You are uploading a large file',
+                    })
+                    return false;
+                }
+                reader.onloadend = (file) => {
+                    this.form.profile_pic = reader.result;
+                }
+                reader.readAsDataURL(file);
+            },
+            updateProfile(id){
+                // Submit the form via a POST request
+                this.$Progress.start();
+                this.form.put('/api/user/'+id)
+                    .then(()=>{
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Profile Picture updated successfully'
+                        })
+                        Fire.$emit('userInfo');
+                        this.$Progress.finish();
+                    })
+                    .catch(()=>{
+                        Toast.fire({
+                            icon: 'warning',
+                            title: 'Oops...Something went wrong'
+                        })
+                        this.$Progress.fail();
+                    })
+            },
+            getProfilePhoto(){
+                if(this.me.profile_pic !== undefined) {
+                    let photo = (this.form.profile_pic.length > 200) ?
+                        this.form.profile_pic : "images/profile/"+
+                        this.me.profile_pic ;
+                    return photo;
+                }else{
+
+                }
+            },
         },
         mounted() {
             // this.updateUser(this.user.id);

@@ -60,8 +60,7 @@
                                     <h4>Recent Activity</h4>
                                     <div class="post clearfix">
                                         <div class="user-block"
-                                             v-for="ticket in
-                                             project.tickets.slice(3)"
+                                             v-for="ticket in recentActivity"
                                              v-if="ticket.status
                                                       ==='complete'">
                                             <div>
@@ -110,26 +109,58 @@
                                 </p>
                             </div>
 
-<!--                            <h5 class="mt-5 text-muted">Project files</h5>-->
-<!--                            <ul class="list-unstyled">-->
-<!--                                <li>-->
-<!--                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-file-word"></i> Functional-requirements.docx</a>-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-file-pdf"></i> UAT.pdf</a>-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-envelope"></i> Email-from-flatbal.mln</a>-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-image "></i> Logo.png</a>-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    <a href="" class="btn-link text-secondary"><i class="fa fa-fw fa-file-word"></i> Contract-10_12_2014.docx</a>-->
-<!--                                </li>-->
-<!--                            </ul>-->
+                            <h5 class="mt-5 text-muted">Project files</h5>
+                            <ul class="list-unstyled" v-for="file in files">
+                                <li v-if="file.file_type ==='docx' ||
+                                file.file_type ==='doc' || file.file_type
+                                ==='odt' || file.file_type ==='txt'">
+                                    <a href=""
+                                       class="btn-link text-secondary"><i
+                                        class="fa fa-fw fa-file-word"
+                                    ></i>{{file.file}} {{file.file_size}}bytes
+                                    </a><span class="ml-5"><i
+                                    class="fa fa-trash text-danger"
+                                    @click="deleteFile(file.id)"></i></span>
+                                </li>
+                                <li v-else-if="file.file_type ==='pdf'">
+                                    <a href="" @click="downloadFile(file.id)"
+                                       class="btn-link text-secondary"><i
+                                        class="fa fa-fw fa-file-pdf"></i>{{file.file}} | Size: {{file.file_size}}bytes</a><span class="ml-5"><i
+                                    class="fa fa-trash text-danger"
+                                    @click="deleteFile(file.id)"></i></span>
+                                </li>
+                                <li v-else-if="file.file_type ==='pps' ||
+                                file.file_type ==='ppt' || file.file_type
+                                ==='pptx' || file.file_type ==='odp' ||
+                                file.file_type ==='key'">
+                                    <a href=""
+                                       class="btn-link text-secondary"><i
+                                        class="fa fa-fw fa-file-powerpoint"></i>{{file.file}} {{file.file_size}}bytes</a><span class="ml-5"><i
+                                    class="fa fa-trash text-danger"
+                                    @click="deleteFile(file.id)"></i></span>
+                                </li>
+                                <li v-else-if="file.file_type ==='xls' ||
+                                file.file_type ==='xlsm' || file.file_type
+                                ==='xlsx' || file.file_type ==='ods' ||
+                                file.file_type ==='csv'">
+                                    <a href="#" @click="downloadFile(file.id)"
+                                       class="btn-link text-secondary"><i
+                                        class="fa fa-fw fa-file-excel"></i>{{file.file}} {{file.file_size}}bytes</a><span class="ml-5"><i
+                                    class="fa fa-trash text-danger"
+                                    @click="deleteFile(file.id)"></i></span>
+                                </li>
+                                <li v-else>
+                                    <a href=""
+                                       class="btn-link text-secondary"><i
+                                        class="fa fa-fw fa-file "></i>{{file.file}} {{file.file_size}}bytes</a><span class="ml-5"><i
+                                    class="fa fa-trash text-danger"
+                                    @click="deleteFile(file.id)"></i></span>
+                                </li>
+                            </ul>
                             <div class="text-center mt-5 mb-3">
-                                <a href="#" class="btn btn-sm btn-primary"
+                                <a href="#"
+                                   @click="openAddFileModal(project.id)"
+                                   class="btn btn-sm btn-primary"
                                    v-show="$gate.isAdminOrisProjectmanager()">Add files</a>
                                 <span v-show="$gate.isAdmin()">
                                     <a href="#"
@@ -195,6 +226,38 @@
                     </div>
                 </div>
             </div>
+<!--            addFileModal-->
+            <div class="modal fade" id="addFile" tabindex="-1" role="dialog"
+                 aria-labelledby="newProject" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addFileTitle">
+                                Add File</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Add File for:
+                                        {{project.project_name}}</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <form @submit="formSubmit" enctype="multipart/form-data">
+                                    <strong>File:</strong>
+                                    <input type="file" class="form-control" v-on:change="onFileChange">
+
+                                    <button class="btn btn-success">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- /.content -->
     </div>
@@ -209,6 +272,9 @@
         },
         data() {
             return  {
+                files:{},
+                recentActivity:[],
+                file: '',
                 project_id:'',
                 selectedUsers: [],
                 users:{},
@@ -220,10 +286,86 @@
                     project_status:'',
                     users: '',
                     project_manager: '',
+                    belongs_to_project:'',
+                    attachment:'',
                 })
             }
         },
         methods: {
+            downloadFile(id){
+                this.$Progress.start();
+                axios.get('/api/attachment/'+id)
+                    .then(()=>{
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'File downloaded successfully'
+                        })
+                        this.$Progress.finish();
+                    })
+                    .catch(()=>{
+                        Toast.fire({
+                            icon: 'warning',
+                            title: 'Oops...Something went wrong'
+                        })
+                        this.$Progress.fail();
+                    })
+            },
+            deleteFile(id){
+                // Submit the form via a POST request
+                this.$Progress.start();
+                axios.delete('/api/attachment/'+id)
+                    .then(()=>{
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'File deleted successfully'
+                        })
+                        Fire.$emit('fetchProjectDetails');
+                        this.$Progress.finish();
+                    })
+                    .catch(()=>{
+                        Toast.fire({
+                            icon: 'warning',
+                            title: 'Oops...Something went wrong'
+                        })
+                        this.$Progress.fail();
+                    })
+            },
+            onFileChange(e){
+                this.file = e.target.files[0];
+            },
+            formSubmit(e) {
+                e.preventDefault();
+                $('#addFile').modal('hide');
+                let currentObj = this;
+
+                const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                }
+
+                let formData = new FormData();
+                formData.append('file', this.file);
+                formData.append('posted_for', this.project.id);
+
+                axios.post('/api/attachment/',formData, config)
+                    .then(function (response) {
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'File added successfully'
+                        })
+                        Fire.$emit('fetchProjectDetails');
+                        this.$Progress.finish();
+                    })
+                    .catch(()=>{
+                        Toast.fire({
+                            icon: 'warning',
+                            title: 'Oops...Something went wrong'
+                        })
+                        this.$Progress.fail();
+                    })
+            },
+            openAddFileModal(project){
+                $('#addFile').modal('show');
+            },
             showUpdateStatusModal(project){
                 $('#updateStatus').modal('show');
                 this.form.fill(project);
@@ -255,6 +397,7 @@
                 axios.get('api/project/'+this.project_id)
                     .then((response) => {
                         this.project = response.data;
+                        this.recentActivity = this.project.tickets.slice(3);
                     });
                 this.$Progress.finish();
             },
@@ -266,14 +409,24 @@
                     });
                 this.$Progress.finish();
             },
+            loadFiles(){
+                this.$Progress.start();
+                axios.get('api/attachment')
+                    .then((response) => {
+                        this.files = response.data;
+                    });
+                this.$Progress.finish();
+            },
         },
     mounted() {
         this.project_id = this.$route.query.Pid;
         this.loadProject();
         this.loadUsers();
+        this.loadFiles();
         Fire.$on('fetchProjectDetails',()=>{
             this.loadProject();
-            this.loadUsers()
+            this.loadUsers();
+            this.loadFiles();
         });
     }
     }

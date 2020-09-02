@@ -1,0 +1,8 @@
+Start,End,Mo,Tu,We,Th,Fr,Su,Lab,Lab,Course Code,Course Title,Instructor,Option,Venue,Location,Building,
+06:00:00,08:00:00,true,false,true,false,false,false,false,false,"COSC272","Object Oriented Design and Programming","Mbata Kevin Mayaka","Main","L105B (Computer Lab B)","Information Systems and Computing ","Library"
+06:00:00,09:00:00,false,false,false,false,true,false,false,false,"INSY214","Web Design and Internet Technologies","Chepsiror Felix","Group B","L105C (Computer Lab C)","Information Systems and Computing ","Library"
+09:00:00,10:00:00,true,false,true,false,true,false,false,false,"COSC343","Foundations Of Human Computer Interactions","Tura Chala Jilo ","Main","L105B (Computer Lab B)","Information Systems and Computing ","Library"
+11:00:00,12:00:00,true,false,true,false,true,false,false,false,"COSC225","Computer Organization","Mbata Kevin Mayaka","Group A","Software Lab","ITS department","Library"
+14:00:00,16:00:00,false,false,false,false,false,true,false,false,"INSY443","Research Methods in IT","Omambia Andrew","Main","L105A (Computer Lab A)","Information Systems and Computing ","Library"
+14:00:00,15:30:00,false,true,false,true,false,false,false,false,"COSC301","Software Engineering Requirements and Specifications","Chepsiror Felix","Main","L105C (Computer Lab C)","Information Systems and Computing ","Library"
+

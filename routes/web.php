@@ -24,3 +24,6 @@ Route::get('/dashboard', 'HomeController@index');
 
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );
 
+
+
+Addchat::routes();

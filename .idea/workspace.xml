@@ -148,6 +148,10 @@
       <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
       <path value="$PROJECT_DIR$/vendor/paragonie/sodium_compat" />
       <path value="$PROJECT_DIR$/vendor/pusher/pusher-php-server" />
+      <path value="$PROJECT_DIR$/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/vendor/classiebit/addchat-laravel" />
+      <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
     </include_path>
   </component>
   <component name="ProjectId" id="1eLMxfLAnNrcSHE7BBSrEfnsFwG" />
@@ -172,6 +176,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\public\images" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\resources\js\components" />
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\public\images" />
@@ -231,6 +238,8 @@
       <workItem from="1598590807827" duration="24077000" />
       <workItem from="1598881841213" duration="12468000" />
       <workItem from="1598935428944" duration="26407000" />
+      <workItem from="1599019935740" duration="7785000" />
+      <workItem from="1599039386595" duration="38435000" />
     </task>
     <servers />
   </component>
@@ -278,11 +287,11 @@
     </state>
     <state x="2010" y="145" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598969258842" />
     <state x="480" y="171" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1600.870@0.0.1600.870" timestamp="1595772009757" />
-    <state x="2394" y="164" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598447263047">
-      <screen x="1600" y="0" width="1366" height="738" />
+    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599069142942">
+      <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="2394" y="164" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598447263047" />
-    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870@0.0.1600.870" timestamp="1597573393830" />
+    <state x="930" y="193" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.870@0.0.1600.870" timestamp="1599069142942" />
     <state x="869" y="212" key="EditFileWatcherDialog" timestamp="1594187779656">
       <screen x="0" y="0" width="1600" height="868" />
     </state>
@@ -359,20 +368,24 @@
       <screen x="1600" y="0" width="1366" height="738" />
     </state>
     <state width="593" height="446" key="SwitcherDM/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598424526096" />
+    <state x="1893" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1599078914972">
+      <screen x="1600" y="0" width="1366" height="738" />
+    </state>
+    <state x="1893" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1599078914972" />
     <state x="441" y="161" width="700" height="530" key="recent.locations.popup" timestamp="1595671244492">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="441" y="161" width="700" height="530" key="recent.locations.popup/0.0.1600.870@0.0.1600.870" timestamp="1595671244492" />
-    <state x="1989" y="168" key="run.anything.popup" timestamp="1598945955963">
-      <screen x="1600" y="0" width="1366" height="738" />
-    </state>
-    <state x="1989" y="168" key="run.anything.popup/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598945955963" />
-    <state x="456" y="198" key="run.anything.popup/0.0.1600.870@0.0.1600.870" timestamp="1594990118110" />
-    <state x="863" y="182" width="672" height="680" key="search.everywhere.popup" timestamp="1598985258276">
+    <state x="456" y="198" key="run.anything.popup" timestamp="1599067656497">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
+    <state x="1989" y="168" key="run.anything.popup/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598945955963" />
+    <state x="456" y="198" key="run.anything.popup/0.0.1600.870@0.0.1600.870" timestamp="1599067656497" />
+    <state x="2056" y="130" width="672" height="577" key="search.everywhere.popup" timestamp="1599088559985">
+      <screen x="1600" y="0" width="1366" height="738" />
+    </state>
     <state x="863" y="182" width="672" height="678" key="search.everywhere.popup/0.0.1600.868@0.0.1600.868" timestamp="1594662665317" />
-    <state x="2337" y="154" width="672" height="577" key="search.everywhere.popup/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598960650161" />
-    <state x="863" y="182" width="672" height="680" key="search.everywhere.popup/0.0.1600.870@0.0.1600.870" timestamp="1598985258276" />
+    <state x="2056" y="130" width="672" height="577" key="search.everywhere.popup/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1599088559985" />
+    <state x="863" y="182" width="672" height="680" key="search.everywhere.popup/0.0.1600.870@0.0.1600.870" timestamp="1599067668333" />
   </component>
 </project>

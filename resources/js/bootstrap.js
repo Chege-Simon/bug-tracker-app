@@ -54,6 +54,14 @@ axios.interceptors.response.use(
                     icon: 'warning',
                     title: 'Page Not Found'
                 })
+            }else if (error.response.status === 500){
+                // Router.push({path:'/dashboard'}).then(()=>{
+                //
+                // });
+                Toast.fire({
+                    icon: 'warning',
+                    title: 'Server error, try again shortly'
+                })
             }
             return Promise.reject(error)
         });

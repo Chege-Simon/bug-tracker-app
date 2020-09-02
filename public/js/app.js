@@ -3553,12 +3553,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       me: {},
-      profile_pic: '',
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["Form"]({
         id: '',
         first_name: '',
         last_name: '',
-        email: ''
+        email: '',
+        profile_pic: ''
       })
     };
   },
@@ -3593,40 +3593,67 @@ __webpack_require__.r(__webpack_exports__);
         _this2.me = response.data;
       });
       this.$Progress.finish();
-    } // updateProfilePic(e){
-    //     let profile_pic = e.target.files[0];
-    // },
-    // updateProfile(id){
-    //     let formData = new FormData();
-    //     formData.append('profile_pic',this.profile_pic);
-    //     axios.put('/api/user/'+id, formData)
-    //         .then(()=>{
-    //             Toast.fire({
-    //                 icon: 'success',
-    //                 title: 'Profile picture updated successfully'
-    //             })
-    //             Fire.$emit('userInfo');
-    //             this.$Progress.finish();
-    //         })
-    //         .catch(()=>{
-    //             Toast.fire({
-    //                 icon: 'warning',
-    //                 title: 'Oops...Something went wrong'
-    //             })
-    //             this.$Progress.fail();
-    //         })
-    // }
+    },
+    updateProfilePic: function updateProfilePic(e) {
+      var _this3 = this;
 
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      var limit = 1024 * 1024 * 2;
+
+      if (file['size'] > limit) {
+        swal({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      }
+
+      reader.onloadend = function (file) {
+        _this3.form.profile_pic = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    updateProfile: function updateProfile(id) {
+      var _this4 = this;
+
+      // Submit the form via a POST request
+      this.$Progress.start();
+      this.form.put('/api/user/' + id).then(function () {
+        Toast.fire({
+          icon: 'success',
+          title: 'Profile Picture updated successfully'
+        });
+        Fire.$emit('userInfo');
+
+        _this4.$Progress.finish();
+      })["catch"](function () {
+        Toast.fire({
+          icon: 'warning',
+          title: 'Oops...Something went wrong'
+        });
+
+        _this4.$Progress.fail();
+      });
+    },
+    getProfilePhoto: function getProfilePhoto() {
+      if (this.me.profile_pic !== undefined) {
+        var photo = this.form.profile_pic.length > 200 ? this.form.profile_pic : "images/profile/" + this.me.profile_pic;
+        return photo;
+      } else {}
+    }
   },
   mounted: function mounted() {
-    var _this3 = this;
+    var _this5 = this;
 
     // this.updateUser(this.user.id);
     // // var ref = this;
     this.loadUser();
     this.form.fill(this.user);
     Fire.$on('userInfo', function () {
-      _this3.loadUser();
+      _this5.loadUser();
     });
   }
 });
@@ -3847,11 +3874,77 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {},
   data: function data() {
     return {
+      files: {},
+      recentActivity: [],
+      file: '',
       project_id: '',
       selectedUsers: [],
       users: {},
@@ -3862,29 +3955,22 @@ __webpack_require__.r(__webpack_exports__);
         project_description: '',
         project_status: '',
         users: '',
-        project_manager: ''
+        project_manager: '',
+        belongs_to_project: '',
+        attachment: ''
       })
     };
   },
   methods: {
-    showUpdateStatusModal: function showUpdateStatusModal(project) {
-      $('#updateStatus').modal('show');
-      this.form.fill(project);
-    },
-    updateStatus: function updateStatus(id) {
+    downloadFile: function downloadFile(id) {
       var _this = this;
 
-      // Submit the form via a POST request
-      $('#updateStatus').modal('hide');
       this.$Progress.start();
-      this.form.put('/api/project/' + id).then(function () {
+      axios.get('/api/attachment/' + id).then(function () {
         Toast.fire({
           icon: 'success',
-          title: 'Project Status updated successfully'
+          title: 'File downloaded successfully'
         });
-        Fire.$emit('fetchProjectDetails');
-
-        _this.form.reset();
 
         _this.$Progress.finish();
       })["catch"](function () {
@@ -3896,35 +3982,135 @@ __webpack_require__.r(__webpack_exports__);
         _this.$Progress.fail();
       });
     },
-    loadProject: function loadProject() {
+    deleteFile: function deleteFile(id) {
       var _this2 = this;
+
+      // Submit the form via a POST request
+      this.$Progress.start();
+      axios["delete"]('/api/attachment/' + id).then(function () {
+        Toast.fire({
+          icon: 'success',
+          title: 'File deleted successfully'
+        });
+        Fire.$emit('fetchProjectDetails');
+
+        _this2.$Progress.finish();
+      })["catch"](function () {
+        Toast.fire({
+          icon: 'warning',
+          title: 'Oops...Something went wrong'
+        });
+
+        _this2.$Progress.fail();
+      });
+    },
+    onFileChange: function onFileChange(e) {
+      this.file = e.target.files[0];
+    },
+    formSubmit: function formSubmit(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      $('#addFile').modal('hide');
+      var currentObj = this;
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      var formData = new FormData();
+      formData.append('file', this.file);
+      formData.append('posted_for', this.project.id);
+      axios.post('/api/attachment/', formData, config).then(function (response) {
+        Toast.fire({
+          icon: 'success',
+          title: 'File added successfully'
+        });
+        Fire.$emit('fetchProjectDetails');
+        this.$Progress.finish();
+      })["catch"](function () {
+        Toast.fire({
+          icon: 'warning',
+          title: 'Oops...Something went wrong'
+        });
+
+        _this3.$Progress.fail();
+      });
+    },
+    openAddFileModal: function openAddFileModal(project) {
+      $('#addFile').modal('show');
+    },
+    showUpdateStatusModal: function showUpdateStatusModal(project) {
+      $('#updateStatus').modal('show');
+      this.form.fill(project);
+    },
+    updateStatus: function updateStatus(id) {
+      var _this4 = this;
+
+      // Submit the form via a POST request
+      $('#updateStatus').modal('hide');
+      this.$Progress.start();
+      this.form.put('/api/project/' + id).then(function () {
+        Toast.fire({
+          icon: 'success',
+          title: 'Project Status updated successfully'
+        });
+        Fire.$emit('fetchProjectDetails');
+
+        _this4.form.reset();
+
+        _this4.$Progress.finish();
+      })["catch"](function () {
+        Toast.fire({
+          icon: 'warning',
+          title: 'Oops...Something went wrong'
+        });
+
+        _this4.$Progress.fail();
+      });
+    },
+    loadProject: function loadProject() {
+      var _this5 = this;
 
       this.$Progress.start();
       axios.get('api/project/' + this.project_id).then(function (response) {
-        _this2.project = response.data;
+        _this5.project = response.data;
+        _this5.recentActivity = _this5.project.tickets.slice(3);
       });
       this.$Progress.finish();
     },
     loadUsers: function loadUsers() {
-      var _this3 = this;
+      var _this6 = this;
 
       this.$Progress.start();
       axios.get('api/user').then(function (response) {
-        _this3.users = response.data;
+        _this6.users = response.data;
+      });
+      this.$Progress.finish();
+    },
+    loadFiles: function loadFiles() {
+      var _this7 = this;
+
+      this.$Progress.start();
+      axios.get('api/attachment').then(function (response) {
+        _this7.files = response.data;
       });
       this.$Progress.finish();
     }
   },
   mounted: function mounted() {
-    var _this4 = this;
+    var _this8 = this;
 
     this.project_id = this.$route.query.Pid;
     this.loadProject();
     this.loadUsers();
+    this.loadFiles();
     Fire.$on('fetchProjectDetails', function () {
-      _this4.loadProject();
+      _this8.loadProject();
 
-      _this4.loadUsers();
+      _this8.loadUsers();
+
+      _this8.loadFiles();
     });
   }
 });
@@ -70160,7 +70346,16 @@ var render = function() {
                 _c("div", { staticClass: "col-md-3" }, [
                   _c("div", { staticClass: "card card-primary card-outline" }, [
                     _c("div", { staticClass: "card-body box-profile" }, [
-                      _vm._m(0),
+                      _c("div", { staticClass: "text-center" }, [
+                        _c("img", {
+                          staticClass: "profile-user-img img-fluid img-circle",
+                          staticStyle: { height: "90px", width: "90px" },
+                          attrs: {
+                            src: _vm.getProfilePhoto(),
+                            alt: "User profile picture"
+                          }
+                        })
+                      ]),
                       _vm._v(" "),
                       _c(
                         "h3",
@@ -70353,7 +70548,54 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
-                        _vm._m(1)
+                        _vm._m(0)
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "form",
+                      {
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.updateProfile(_vm.user.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "col-sm-12 control-label",
+                                attrs: { for: "profile_pic" }
+                              },
+                              [
+                                _vm._v(
+                                  "Profile Picture\n                                            "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "input-group" }, [
+                              _c("div", { staticClass: "custom-file" }, [
+                                _c("input", {
+                                  staticClass: "form-input",
+                                  attrs: {
+                                    type: "file",
+                                    accept: "image/png, image/jpeg",
+                                    name: "profile_pic",
+                                    id: "profile_pic"
+                                  },
+                                  on: { change: _vm.updateProfilePic }
+                                }),
+                                _vm._v(" "),
+                                _vm._m(1)
+                              ])
+                            ])
+                          ])
+                        ])
                       ]
                     ),
                     _vm._v(" "),
@@ -70375,17 +70617,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c("img", {
-        staticClass: "profile-user-img img-fluid img-circle",
-        attrs: { src: "/images/user.png", alt: "User profile picture" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group row" }, [
       _c("div", { staticClass: "col-sm-10" }, [
         _c(
@@ -70394,6 +70625,18 @@ var staticRenderFns = [
           [_c("i", { staticClass: "fa fa-cog fa-fw" }), _vm._v(" Action")]
         )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Upload")]
+      )
     ])
   },
   function() {
@@ -70414,7 +70657,7 @@ var staticRenderFns = [
           },
           [
             _vm._v(
-              "\n                                                Change Password\n                                            "
+              "\n                                            Change Password\n                                        "
             )
           ]
         )
@@ -70481,7 +70724,7 @@ var render = function() {
                     _c(
                       "div",
                       { staticClass: "post clearfix" },
-                      _vm._l(_vm.project.tickets.slice(3), function(ticket) {
+                      _vm._l(_vm.recentActivity, function(ticket) {
                         return ticket.status === "complete"
                           ? _c("div", { staticClass: "user-block" }, [
                               _c(
@@ -70593,6 +70836,184 @@ var render = function() {
                   2
                 ),
                 _vm._v(" "),
+                _c("h5", { staticClass: "mt-5 text-muted" }, [
+                  _vm._v("Project files")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.files, function(file) {
+                  return _c("ul", { staticClass: "list-unstyled" }, [
+                    file.file_type === "docx" ||
+                    file.file_type === "doc" ||
+                    file.file_type === "odt" ||
+                    file.file_type === "txt"
+                      ? _c("li", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn-link text-secondary",
+                              attrs: { href: "" }
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-fw fa-file-word" }),
+                              _vm._v(
+                                _vm._s(file.file) +
+                                  " " +
+                                  _vm._s(file.file_size) +
+                                  "bytes\n                                    "
+                              )
+                            ]
+                          ),
+                          _c("span", { staticClass: "ml-5" }, [
+                            _c("i", {
+                              staticClass: "fa fa-trash text-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteFile(file.id)
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      : file.file_type === "pdf"
+                      ? _c("li", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn-link text-secondary",
+                              attrs: { href: "" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.downloadFile(file.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-fw fa-file-pdf" }),
+                              _vm._v(
+                                _vm._s(file.file) +
+                                  " | Size: " +
+                                  _vm._s(file.file_size) +
+                                  "bytes"
+                              )
+                            ]
+                          ),
+                          _c("span", { staticClass: "ml-5" }, [
+                            _c("i", {
+                              staticClass: "fa fa-trash text-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteFile(file.id)
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      : file.file_type === "pps" ||
+                        file.file_type === "ppt" ||
+                        file.file_type === "pptx" ||
+                        file.file_type === "odp" ||
+                        file.file_type === "key"
+                      ? _c("li", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn-link text-secondary",
+                              attrs: { href: "" }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-fw fa-file-powerpoint"
+                              }),
+                              _vm._v(
+                                _vm._s(file.file) +
+                                  " " +
+                                  _vm._s(file.file_size) +
+                                  "bytes"
+                              )
+                            ]
+                          ),
+                          _c("span", { staticClass: "ml-5" }, [
+                            _c("i", {
+                              staticClass: "fa fa-trash text-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteFile(file.id)
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      : file.file_type === "xls" ||
+                        file.file_type === "xlsm" ||
+                        file.file_type === "xlsx" ||
+                        file.file_type === "ods" ||
+                        file.file_type === "csv"
+                      ? _c("li", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn-link text-secondary",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.downloadFile(file.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-fw fa-file-excel"
+                              }),
+                              _vm._v(
+                                _vm._s(file.file) +
+                                  " " +
+                                  _vm._s(file.file_size) +
+                                  "bytes"
+                              )
+                            ]
+                          ),
+                          _c("span", { staticClass: "ml-5" }, [
+                            _c("i", {
+                              staticClass: "fa fa-trash text-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteFile(file.id)
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      : _c("li", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn-link text-secondary",
+                              attrs: { href: "" }
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-fw fa-file " }),
+                              _vm._v(
+                                _vm._s(file.file) +
+                                  " " +
+                                  _vm._s(file.file_size) +
+                                  "bytes"
+                              )
+                            ]
+                          ),
+                          _c("span", { staticClass: "ml-5" }, [
+                            _c("i", {
+                              staticClass: "fa fa-trash text-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteFile(file.id)
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                  ])
+                }),
+                _vm._v(" "),
                 _c("div", { staticClass: "text-center mt-5 mb-3" }, [
                   _c(
                     "a",
@@ -70606,7 +71027,12 @@ var render = function() {
                         }
                       ],
                       staticClass: "btn btn-sm btn-primary",
-                      attrs: { href: "#" }
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.openAddFileModal(_vm.project.id)
+                        }
+                      }
                     },
                     [_vm._v("Add files")]
                   ),
@@ -70662,7 +71088,8 @@ var render = function() {
                     ]
                   )
                 ])
-              ]
+              ],
+              2
             )
           ])
         ])
@@ -70770,6 +71197,68 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _vm._m(4)
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "addFile",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "newProject",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "modal-dialog modal-dialog-centered",
+              attrs: { role: "document" }
+            },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "card card-primary" }, [
+                    _c("div", { staticClass: "card-header" }, [
+                      _c("h3", { staticClass: "card-title" }, [
+                        _vm._v(
+                          "Add File for:\n                                        " +
+                            _vm._s(_vm.project.project_name)
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "form",
+                      {
+                        attrs: { enctype: "multipart/form-data" },
+                        on: { submit: _vm.formSubmit }
+                      },
+                      [
+                        _c("strong", [_vm._v("File:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "file" },
+                          on: { change: _vm.onFileChange }
+                        }),
+                        _vm._v(" "),
+                        _c("button", { staticClass: "btn btn-success" }, [
+                          _vm._v("Submit")
+                        ])
                       ]
                     )
                   ])
@@ -70925,6 +71414,29 @@ var staticRenderFns = [
           [_c("i", { staticClass: "fa fa-cog fa-fw" }), _vm._v(" Action")]
         )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title", attrs: { id: "addFileTitle" } }, [
+        _vm._v("\n                                Add File")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]
@@ -89943,6 +90455,14 @@ axios.interceptors.response.use(function (response) {
     Toast.fire({
       icon: 'warning',
       title: 'Page Not Found'
+    });
+  } else if (error.response.status === 500) {
+    // Router.push({path:'/dashboard'}).then(()=>{
+    //
+    // });
+    Toast.fire({
+      icon: 'warning',
+      title: 'Server error, try again shortly'
     });
   }
 

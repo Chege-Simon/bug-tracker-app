@@ -76,16 +76,32 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        $imageName = time().'.'.$request->image->getClientOriginalExtension();
-//        $request->image->move(public_path('images'), $imageName);
-//        $contents = file_get_contents($request->profile_pic->path());
-
         $user=User::findOrFail($id);
+
         $this->validate($request,[
             'first_name' => 'string|max:255',
             'last_name' => 'string|max:255',
             'email' => 'string|email|max:255|unique:users,email,'.$user->id,
         ]);
+
+        $currentPhoto = $user->profile_pic;
+
+        if($request->profile_pic != $currentPhoto){
+            $name = time().'.' . explode('/', explode(':', substr
+                ($request->profile_pic, 0, strpos($request->profile_pic, ';')))
+                [1])
+                [1];
+
+            \Image::make($request->profile_pic)->save(public_path('images/profile/').$name);
+            $request->merge(['profile_pic' => $name]);
+
+            $userPhoto = public_path('images/profile/').$currentPhoto;
+            if(file_exists($userPhoto)){
+                @unlink($userPhoto);
+            }
+
+        }
+
         $user->update($request->all());
 //        return $request;
     }

@@ -11,8 +11,16 @@
     <title>{{ config('app.name', 'Bug Tracker') }}</title>
 
     <link rel="stylesheet" href="/css/app.css">
+{{--    <!-- 1. Addchat css -->--}}
+{{--    <link href="<?php echo asset('assets/addchat/css/addchat.min.css') ?>" rel="stylesheet">--}}
 </head>
 <body class="hold-transition sidebar-mini">
+{{--<!-- 2. AddChat widget -->--}}
+{{--<div id="addchat_app"--}}
+{{--     data-baseurl="<?php echo url('') ?>"--}}
+{{--     data-csrfname="<?php echo 'X-CSRF-Token' ?>"--}}
+{{--     data-csrftoken="<?php echo csrf_token() ?>"--}}
+{{--></div>--}}
 <div class="wrapper" id="app">
 
     <!-- Navbar -->
@@ -71,13 +79,18 @@
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="/images/user.png" class="img-circle elevation-2" alt="User Image">
+                <div>
+                    <img class=" img-circle" style="width: 40px; height: 40px"
+                         src="/images/profile/{{ Auth::user()->profile_pic }}"
+                    class="img-circle elevation-2"
+                         alt="User Image">
                 </div>
                 <div class="info">
                     <router-link to="/profile" class="d-block">Logged in as:
-                        <strong class="text-warning">{{ Auth::user()->role }}</strong>
-                    <p class="text-success m-0 p-0">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
+                        <div>
+                            <strong class="text-warning">{{ Auth::user()->role }}</strong>
+                            <p class="text-success m-0 p-0">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
+                        </div>
                     </router-link>
                 </div>
             </div>
@@ -205,5 +218,10 @@
 @endauth
 <script src="/js/app.js">
 </script>
+{{--<!-- 3. AddChat JS -->--}}
+{{--<!-- Modern browsers -->--}}
+{{--<script type="module" src="<?php echo asset('assets/addchat/js/addchat.min.js') ?>"></script>--}}
+{{--<!-- Fallback support for Older browsers -->--}}
+{{--<script nomodule src="<?php echo asset('assets/addchat/js/addchat-legacy.min.js') ?>"></script>--}}
 </body>
 </html>
