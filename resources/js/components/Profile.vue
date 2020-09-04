@@ -200,13 +200,15 @@
                     })
             },
             getProfilePhoto(){
-                if(this.me.profile_pic !== undefined) {
+                if(this.me.profile_pic !== null && this.me.profile_pic !==
+                    undefined) {
                     let photo = (this.form.profile_pic.length > 200) ?
                         this.form.profile_pic : "images/profile/"+
                         this.me.profile_pic ;
                     return photo;
                 }else{
-
+                    let photo = "images/user.png" ;
+                    return photo;
                 }
             },
         },

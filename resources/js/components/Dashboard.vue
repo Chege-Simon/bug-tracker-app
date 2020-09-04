@@ -413,11 +413,10 @@
         },
         methods:{
             getProfilePhoto(user){
-                if(user.profile_pic !== undefined) {
+                if(user.profile_pic !== null) {
                     let photo = "images/profile/"+ user.profile_pic ;
                     return photo;
-                }else if(user.profile_pic === undefined || user.profile_pic
-                    === null){
+                }else if(user.profile_pic === null){
                     let photo = "images/user.png" ;
                     return photo;
                 }

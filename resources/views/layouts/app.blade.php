@@ -9,7 +9,7 @@
 
     <title>{{ config('app.name', 'Easy Issue') }}</title>
     <!-- favicon -->
-    <link rel="shortcut icon" href="{{ asset('images/easyIssueLogo.png')}}"
+    <link rel="shortcut icon" href="{{  secure_asset('images/easyIssueLogo.png')}}"
           type="image/x-icon">
 
     <!-- Scripts -->

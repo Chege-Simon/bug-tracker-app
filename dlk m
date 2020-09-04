@@ -1,0 +1,36 @@
+* [33m635523d[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m resolving errors
+* [33mc98db02[m resolving errors
+* [33mb10ec36[m resolving errors
+* [33mf273dd5[m resolving errors
+* [33me5e1564[m resolving errors
+* [33m891b310[m solving build error
+* [33mfcd8d5a[m set key becasuse of error 500
+* [33m3120857[m[33m ([m[1;31mheroku/master[m[33m)[m final prep
+* [33m5b2e2e0[m adding node version
+* [33m29dd4dc[m adding node version
+* [33me159e01[m[33m ([m[1;31morigin/master[m[33m)[m adding logos
+* [33m62f477a[m initial release
+* [33m3121e7a[m adding demo emails to login page
+* [33m1a886f4[m first release build
+* [33m08f7de6[m adding of project files
+* [33m524e7b9[m error handling with toasts
+* [33m4c79bfe[m added priorities to tickets
+* [33md53a4f9[m editing of projects and changing the status of projects and tickets
+* [33mb00a0f0[m made dashboard for all users
+* [33m92802a3[m everyone can view there projects and tickets and project details page
+* [33mae703a4[m tickets all working
+* [33m245c89b[m project manager can add users to the project
+* [33m2f797d5[m created relationship for users and projects
+* [33m46b7f90[m restricted user access in laravel
+* [33m74a51dc[m  a set back
+* [33m1b26c1a[m registration and login UI for all user types
+* [33mdfc11bb[m updating user info automatically after modifing the info
+* [33mb8ff525[m profile, users and role pages updated
+* [33mfe45b77[m users and user profile components
+* [33mee1aede[m vue configured
+* [33ma70c9ce[m created README.MD
+*   [33mf0da43d[m first commit
+[32m|[m[33m\[m  
+[32m|[m * [33m1b695dc[m Initial commit
+* [33m3085c61[m first commit
+* [33mb0ffae1[m Initial commit.
