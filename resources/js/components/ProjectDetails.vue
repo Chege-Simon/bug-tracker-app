@@ -65,7 +65,8 @@
                                                       ==='complete'">
                                             <div>
                                                 <img
-                                                    class="img-circle img-bordered-sm" src="/images/user.png" alt="user image">
+                                                    v-for="user in users"v-if="user.id === ticket.user_id"
+                                                    class="img-circle img-bordered-sm" :src="getProfilePhoto(user)" alt="user image">
                                                 <span class="username"
                                                       v-for="user in users"
                                                       v-if="user.id ===
@@ -80,10 +81,6 @@
                                             <!-- /.user-block -->
                                             <p>
                                                 {{ ticket.ticket_description }}
-                                            </p>
-
-                                            <p>
-                                                <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1 v2</a>
                                             </p>
                                         </div>
                                     </div>
@@ -109,15 +106,16 @@
                                 </p>
                             </div>
 
-                            <h5 class="mt-5 text-muted">Project files</h5>
+                            <h5 class="mt-5 text-bold">Project files
+                                <span class="text-muted">pdf(s)</span></h5>
                             <ul class="list-unstyled" v-for="file in files">
                                 <li v-if="file.file_type ==='docx' ||
                                 file.file_type ==='doc' || file.file_type
                                 ==='odt' || file.file_type ==='txt'">
-                                    <a href=""
+                                    <a href="" @click="downloadFile(file.id)"
                                        class="btn-link text-secondary"><i
                                         class="fa fa-fw fa-file-word"
-                                    ></i>{{file.file}} {{file.file_size}}bytes
+                                    ></i>{{file.file}} | Size: {{file.file_size}}bytes
                                     </a><span class="ml-5"><i
                                     class="fa fa-trash text-danger"
                                     @click="deleteFile(file.id)"></i></span>
@@ -133,9 +131,9 @@
                                 file.file_type ==='ppt' || file.file_type
                                 ==='pptx' || file.file_type ==='odp' ||
                                 file.file_type ==='key'">
-                                    <a href=""
+                                    <a href="" @click="downloadFile(file.id)"
                                        class="btn-link text-secondary"><i
-                                        class="fa fa-fw fa-file-powerpoint"></i>{{file.file}} {{file.file_size}}bytes</a><span class="ml-5"><i
+                                        class="fa fa-fw fa-file-powerpoint"></i>{{file.file}} | Size: {{file.file_size}}bytes</a><span class="ml-5"><i
                                     class="fa fa-trash text-danger"
                                     @click="deleteFile(file.id)"></i></span>
                                 </li>
@@ -143,16 +141,16 @@
                                 file.file_type ==='xlsm' || file.file_type
                                 ==='xlsx' || file.file_type ==='ods' ||
                                 file.file_type ==='csv'">
-                                    <a href="#" @click="downloadFile(file.id)"
+                                    <a href="" @click="downloadFile(file.id)"
                                        class="btn-link text-secondary"><i
-                                        class="fa fa-fw fa-file-excel"></i>{{file.file}} {{file.file_size}}bytes</a><span class="ml-5"><i
+                                        class="fa fa-fw fa-file-excel"></i>{{file.file}} | Size: {{file.file_size}}bytes</a><span class="ml-5"><i
                                     class="fa fa-trash text-danger"
                                     @click="deleteFile(file.id)"></i></span>
                                 </li>
                                 <li v-else>
-                                    <a href=""
+                                    <a href="" @click="downloadFile(file.id)"
                                        class="btn-link text-secondary"><i
-                                        class="fa fa-fw fa-file "></i>{{file.file}} {{file.file_size}}bytes</a><span class="ml-5"><i
+                                        class="fa fa-fw fa-file "></i>{{file.file}} | Size: {{file.file_size}}bytes</a><span class="ml-5"><i
                                     class="fa fa-trash text-danger"
                                     @click="deleteFile(file.id)"></i></span>
                                 </li>
@@ -249,7 +247,9 @@
                                 <!-- form start -->
                                 <form @submit="formSubmit" enctype="multipart/form-data">
                                     <strong>File:</strong>
-                                    <input type="file" class="form-control" v-on:change="onFileChange">
+                                    <input type="file" class="form-control"
+                                           accept="application/pdf"
+                                           v-on:change="onFileChange">
 
                                     <button class="btn btn-success">Submit</button>
                                 </form>
@@ -292,21 +292,23 @@
             }
         },
         methods: {
+            getProfilePhoto(user){
+                if(user.profile_pic !== undefined) {
+                    let photo = "images/profile/"+ user.profile_pic ;
+                    return photo;
+                }else if(user.profile_pic === undefined || user.profile_pic
+                    === null){
+                    let photo = "images/user.png" ;
+                    return photo;
+                }
+            },
             downloadFile(id){
                 this.$Progress.start();
                 axios.get('/api/attachment/'+id)
                     .then(()=>{
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'File downloaded successfully'
-                        })
                         this.$Progress.finish();
                     })
                     .catch(()=>{
-                        Toast.fire({
-                            icon: 'warning',
-                            title: 'Oops...Something went wrong'
-                        })
                         this.$Progress.fail();
                     })
             },
@@ -347,7 +349,7 @@
                 formData.append('posted_for', this.project.id);
 
                 axios.post('/api/attachment/',formData, config)
-                    .then(function (response) {
+                    .then(()=>{
                         Toast.fire({
                             icon: 'success',
                             title: 'File added successfully'
@@ -397,7 +399,9 @@
                 axios.get('api/project/'+this.project_id)
                     .then((response) => {
                         this.project = response.data;
-                        this.recentActivity = this.project.tickets.slice(3);
+                        let recentActivity = this.project.tickets;
+                        this.recentActivity =
+                            recentActivity.slice(recentActivity.length-3);
                     });
                 this.$Progress.finish();
             },

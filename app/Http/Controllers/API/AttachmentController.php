@@ -18,10 +18,10 @@ class AttachmentController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth:api');
+//    }
     /**
      * Display a listing of the resource.
      *
@@ -54,7 +54,7 @@ class AttachmentController extends Controller
             'file_type'=>$fileType,
             'file_size'=>$fileSize
         ]);
-
+        return ['success'=>'file saved'];
     }
 
     /**
@@ -68,10 +68,11 @@ class AttachmentController extends Controller
         $file = Attachment::findOrFail($id);
         $myFile = public_path('upload').'/'.$file->file;
         $headers = array(
-            'Content-Type: application/pdf',
-            );
-//        $headers = ('Content-Type', $file->file_type);
-        return Response::download($myFile);
+            'Content-Type: application/'.$file->file_type,
+        );
+        if (is_file($myFile)) {
+            return response()->download($myFile,$file->file,$headers);
+        }
     }
 
     /**

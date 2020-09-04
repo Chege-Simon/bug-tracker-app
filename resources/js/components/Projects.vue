@@ -68,9 +68,10 @@
                                 <td class="text-center">
                                     <a href="#" @click="viewProject(project.id)"
                                        class="nav-link">
-                                        <i class="nav-icon fa fa-info"
+                                        <i class="nav-icon fa fa-info ml-1"
                                            data-toggle="tooltip"
-                                           title="View project details"></i>
+                                           title="View project details">_Details
+                                        </i>
                                     </a>
                                     <a href="#"
                                         @click="showEditProjectModal(project)">

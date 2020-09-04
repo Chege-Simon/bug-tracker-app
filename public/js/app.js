@@ -2310,6 +2310,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2320,6 +2321,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      showIssueChat: false,
       num_of_open_projects: 0,
       num_of_incomplete_tickets: 0,
       theProject_id: {},
@@ -2337,6 +2339,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    getProfilePhoto: function getProfilePhoto(user) {
+      if (user.profile_pic !== undefined) {
+        var photo = "images/profile/" + user.profile_pic;
+        return photo;
+      } else if (user.profile_pic === undefined || user.profile_pic === null) {
+        var _photo = "images/user.png";
+        return _photo;
+      }
+    },
     postIssue: function postIssue(project_id, user_id) {
       var _this = this;
 
@@ -2367,6 +2378,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     toMessage: function toMessage(id) {
+      this.showIssueChat = true;
       this.theProject_id = id;
       this.loadProject(id);
       this.loadIssues();
@@ -3962,23 +3974,22 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    getProfilePhoto: function getProfilePhoto(user) {
+      if (user.profile_pic !== undefined) {
+        var photo = "images/profile/" + user.profile_pic;
+        return photo;
+      } else if (user.profile_pic === undefined || user.profile_pic === null) {
+        var _photo = "images/user.png";
+        return _photo;
+      }
+    },
     downloadFile: function downloadFile(id) {
       var _this = this;
 
       this.$Progress.start();
       axios.get('/api/attachment/' + id).then(function () {
-        Toast.fire({
-          icon: 'success',
-          title: 'File downloaded successfully'
-        });
-
         _this.$Progress.finish();
       })["catch"](function () {
-        Toast.fire({
-          icon: 'warning',
-          title: 'Oops...Something went wrong'
-        });
-
         _this.$Progress.fail();
       });
     },
@@ -4021,13 +4032,14 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('file', this.file);
       formData.append('posted_for', this.project.id);
-      axios.post('/api/attachment/', formData, config).then(function (response) {
+      axios.post('/api/attachment/', formData, config).then(function () {
         Toast.fire({
           icon: 'success',
           title: 'File added successfully'
         });
         Fire.$emit('fetchProjectDetails');
-        this.$Progress.finish();
+
+        _this3.$Progress.finish();
       })["catch"](function () {
         Toast.fire({
           icon: 'warning',
@@ -4075,7 +4087,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
       axios.get('api/project/' + this.project_id).then(function (response) {
         _this5.project = response.data;
-        _this5.recentActivity = _this5.project.tickets.slice(3);
+        var recentActivity = _this5.project.tickets;
+        _this5.recentActivity = recentActivity.slice(recentActivity.length - 3);
       });
       this.$Progress.finish();
     },
@@ -4128,6 +4141,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_0__);
+//
 //
 //
 //
@@ -4613,12 +4627,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -67935,8 +67943,12 @@ var render = function() {
                                         _vm._v(
                                           "\n                                                    " +
                                             _vm._s(project.project_name) +
-                                            "\n                                                    "
+                                            " "
                                         ),
+                                        _c("span", { staticClass: "ml-3" }, [
+                                          _vm._v("post issues")
+                                        ]),
+                                        _vm._v(" "),
                                         _c("i", {
                                           staticClass:
                                             "nav-icon fa fa-arrow-right ml-5 pl-5",
@@ -68057,8 +68069,10 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: !_vm.$gate.isDeveloper(),
-                      expression: "!$gate.isDeveloper()"
+                      value:
+                        _vm.showIssueChat === true && !_vm.$gate.isDeveloper(),
+                      expression:
+                        "showIssueChat === true && !$gate.isDeveloper()"
                     }
                   ],
                   staticClass: "card direct-chat direct-chat-primary text-dark"
@@ -68160,7 +68174,7 @@ var render = function() {
                                       _c("img", {
                                         staticClass: "direct-chat-img",
                                         attrs: {
-                                          src: "/images/user.png",
+                                          src: _vm.getProfilePhoto(issue.user),
                                           alt: "message user image"
                                         }
                                       }),
@@ -68240,7 +68254,7 @@ var render = function() {
                                       _c("img", {
                                         staticClass: "direct-chat-img",
                                         attrs: {
-                                          src: "/images/user.png",
+                                          src: _vm.getProfilePhoto(issue.user),
                                           alt: "message user image"
                                         }
                                       }),
@@ -70730,12 +70744,17 @@ var render = function() {
                               _c(
                                 "div",
                                 [
-                                  _c("img", {
-                                    staticClass: "img-circle img-bordered-sm",
-                                    attrs: {
-                                      src: "/images/user.png",
-                                      alt: "user image"
-                                    }
+                                  _vm._l(_vm.users, function(user) {
+                                    return user.id === ticket.user_id
+                                      ? _c("img", {
+                                          staticClass:
+                                            "img-circle img-bordered-sm",
+                                          attrs: {
+                                            src: _vm.getProfilePhoto(user),
+                                            alt: "user image"
+                                          }
+                                        })
+                                      : _vm._e()
                                   }),
                                   _vm._v(" "),
                                   _vm._l(_vm.users, function(user) {
@@ -70773,9 +70792,7 @@ var render = function() {
                                     _vm._s(ticket.ticket_description) +
                                     "\n                                            "
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _vm._m(2, true)
+                              ])
                             ])
                           : _vm._e()
                       }),
@@ -70836,9 +70853,7 @@ var render = function() {
                   2
                 ),
                 _vm._v(" "),
-                _c("h5", { staticClass: "mt-5 text-muted" }, [
-                  _vm._v("Project files")
-                ]),
+                _vm._m(2),
                 _vm._v(" "),
                 _vm._l(_vm.files, function(file) {
                   return _c("ul", { staticClass: "list-unstyled" }, [
@@ -70851,13 +70866,18 @@ var render = function() {
                             "a",
                             {
                               staticClass: "btn-link text-secondary",
-                              attrs: { href: "" }
+                              attrs: { href: "" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.downloadFile(file.id)
+                                }
+                              }
                             },
                             [
                               _c("i", { staticClass: "fa fa-fw fa-file-word" }),
                               _vm._v(
                                 _vm._s(file.file) +
-                                  " " +
+                                  " | Size: " +
                                   _vm._s(file.file_size) +
                                   "bytes\n                                    "
                               )
@@ -70918,7 +70938,12 @@ var render = function() {
                             "a",
                             {
                               staticClass: "btn-link text-secondary",
-                              attrs: { href: "" }
+                              attrs: { href: "" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.downloadFile(file.id)
+                                }
+                              }
                             },
                             [
                               _c("i", {
@@ -70926,7 +70951,7 @@ var render = function() {
                               }),
                               _vm._v(
                                 _vm._s(file.file) +
-                                  " " +
+                                  " | Size: " +
                                   _vm._s(file.file_size) +
                                   "bytes"
                               )
@@ -70953,7 +70978,7 @@ var render = function() {
                             "a",
                             {
                               staticClass: "btn-link text-secondary",
-                              attrs: { href: "#" },
+                              attrs: { href: "" },
                               on: {
                                 click: function($event) {
                                   return _vm.downloadFile(file.id)
@@ -70966,7 +70991,7 @@ var render = function() {
                               }),
                               _vm._v(
                                 _vm._s(file.file) +
-                                  " " +
+                                  " | Size: " +
                                   _vm._s(file.file_size) +
                                   "bytes"
                               )
@@ -70988,13 +71013,18 @@ var render = function() {
                             "a",
                             {
                               staticClass: "btn-link text-secondary",
-                              attrs: { href: "" }
+                              attrs: { href: "" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.downloadFile(file.id)
+                                }
+                              }
                             },
                             [
                               _c("i", { staticClass: "fa fa-fw fa-file " }),
                               _vm._v(
                                 _vm._s(file.file) +
-                                  " " +
+                                  " | Size: " +
                                   _vm._s(file.file_size) +
                                   "bytes"
                               )
@@ -71252,7 +71282,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
-                          attrs: { type: "file" },
+                          attrs: { type: "file", accept: "application/pdf" },
                           on: { change: _vm.onFileChange }
                         }),
                         _vm._v(" "),
@@ -71370,11 +71400,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("a", { staticClass: "link-black text-sm", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-link mr-1" }),
-        _vm._v(" Demo File 1 v2")
-      ])
+    return _c("h5", { staticClass: "mt-5 text-bold" }, [
+      _vm._v("Project files\n                                "),
+      _c("span", { staticClass: "text-muted" }, [_vm._v("pdf(s)")])
     ])
   },
   function() {
@@ -71563,13 +71591,21 @@ var render = function() {
                         }
                       },
                       [
-                        _c("i", {
-                          staticClass: "nav-icon fa fa-info",
-                          attrs: {
-                            "data-toggle": "tooltip",
-                            title: "View project details"
-                          }
-                        })
+                        _c(
+                          "i",
+                          {
+                            staticClass: "nav-icon fa fa-info ml-1",
+                            attrs: {
+                              "data-toggle": "tooltip",
+                              title: "View project details"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "_Details\n                                        "
+                            )
+                          ]
+                        )
                       ]
                     ),
                     _vm._v(" "),
@@ -72685,23 +72721,6 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "text-center" }, [
-                    _c(
-                      "a",
-                      {
-                        attrs: { href: "#" },
-                        on: { click: function($event) {} }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "nav-icon fa fa-paperclip text-dark p-1",
-                          attrs: {
-                            "data-toggle": "tooltip",
-                            title: "View Attachments"
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
                     _c(
                       "a",
                       {

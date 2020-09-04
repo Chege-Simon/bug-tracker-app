@@ -70,12 +70,6 @@
                                     </span>
                                 </td>
                                 <td class="text-center">
-
-                                    <a href='#'@click="">
-                                        <i
-                                            class="nav-icon fa fa-paperclip text-dark p-1" data-toggle="tooltip" title="View Attachments"></i>
-                                    </a>
-
                                     <a href="#"
                                        @click="deleteTicket(ticket.id)">
                                         <i

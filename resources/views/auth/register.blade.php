@@ -90,7 +90,8 @@
     <div class="register-box">
             <div class="register-box">
                 <div class="register-logo">
-                    <a href="/"><b>Bug</b>Tracker</a>
+                    <a href="#"><b>{{ config('app.name', 'Easy Issue') }}
+                        </b>app</a>
                 </div>
 
                 <div class="card">

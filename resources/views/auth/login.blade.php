@@ -2,10 +2,14 @@
 
 @section('content')
 
-    <div class="hold-transition login-page">
-        <div class="login-box">
+    <div class=" row">
+        <div class="col-md-4">
+
+        </div>
+        <div class=" col-md-4">
             <div class="login-logo">
-                <a href="#"><b>Bug Tracker </b>app</a>
+                <a href="#"><b>{{ config('app.name', 'Easy Issue') }}
+                    </b>app</a>
             </div>
             <!-- /.login-logo -->
             <div class="card">
@@ -74,6 +78,28 @@
             </div>
         </div>
         <!-- /.login-box -->
+        <div class="col-md-3 m-5">
+            <h3>Demo Accounts</h3>
+            <div class="alert alert-info p-3" style="width: 80%; height:
+            15%">password
+                to all
+                demo
+                accounts:-
+                <code class="text-red">password</code>
+            </div>
+            <div class="container text-left mt-5">
+                <p>Admin Role:</p>
+                <code class="text-red">admin@bug.com</code>
+                <p>Project Manager Role:</p>
+                <code class="text-red">project_manager@bug.com</code>
+                <p>Normal User Role:</p>
+                <code class="text-red">user@bug.com</code>
+                <p>Developer Role:</p>
+                <code class="text-red">developer@bug.com</code>
+                <p>Supreme Admin Role:</p>
+                <code class="text-red">supreme@bug.com</code>
+            </div>
+        </div>
     </div>
 
 @endsection

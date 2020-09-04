@@ -176,15 +176,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\public\images" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\resources\js\components" />
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\public\images" />
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\resources\views\auth\register" />
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\resources\views\auth" />
       <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\resources\views\auth\login" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\public\images" />
+      <recent name="\\wsl$\Ubuntu-18.04\home\dev-kim\bug-tracker-app\public\images\profile" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.ManageRole.vue">
@@ -239,7 +240,9 @@
       <workItem from="1598881841213" duration="12468000" />
       <workItem from="1598935428944" duration="26407000" />
       <workItem from="1599019935740" duration="7785000" />
-      <workItem from="1599039386595" duration="38435000" />
+      <workItem from="1599039386595" duration="38659000" />
+      <workItem from="1599127359767" duration="10206000" />
+      <workItem from="1599191572425" duration="5046000" />
     </task>
     <servers />
   </component>
@@ -368,24 +371,24 @@
       <screen x="1600" y="0" width="1366" height="738" />
     </state>
     <state width="593" height="446" key="SwitcherDM/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598424526096" />
-    <state x="1893" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1599078914972">
+    <state x="1893" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1599142734481">
       <screen x="1600" y="0" width="1366" height="738" />
     </state>
-    <state x="1893" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1599078914972" />
+    <state x="1893" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1599142734481" />
     <state x="441" y="161" width="700" height="530" key="recent.locations.popup" timestamp="1595671244492">
       <screen x="0" y="0" width="1600" height="870" />
     </state>
     <state x="441" y="161" width="700" height="530" key="recent.locations.popup/0.0.1600.870@0.0.1600.870" timestamp="1595671244492" />
-    <state x="456" y="198" key="run.anything.popup" timestamp="1599067656497">
-      <screen x="0" y="0" width="1600" height="870" />
+    <state x="1989" y="168" key="run.anything.popup" timestamp="1599139786050">
+      <screen x="1600" y="0" width="1366" height="738" />
     </state>
-    <state x="1989" y="168" key="run.anything.popup/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1598945955963" />
+    <state x="1989" y="168" key="run.anything.popup/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1599139786050" />
     <state x="456" y="198" key="run.anything.popup/0.0.1600.870@0.0.1600.870" timestamp="1599067656497" />
-    <state x="2056" y="130" width="672" height="577" key="search.everywhere.popup" timestamp="1599088559985">
+    <state x="2056" y="130" width="672" height="577" key="search.everywhere.popup" timestamp="1599142417479">
       <screen x="1600" y="0" width="1366" height="738" />
     </state>
     <state x="863" y="182" width="672" height="678" key="search.everywhere.popup/0.0.1600.868@0.0.1600.868" timestamp="1594662665317" />
-    <state x="2056" y="130" width="672" height="577" key="search.everywhere.popup/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1599088559985" />
+    <state x="2056" y="130" width="672" height="577" key="search.everywhere.popup/0.0.1600.870/1600.0.1366.738@1600.0.1366.738" timestamp="1599142417479" />
     <state x="863" y="182" width="672" height="680" key="search.everywhere.popup/0.0.1600.870@0.0.1600.870" timestamp="1599067668333" />
   </component>
 </project>

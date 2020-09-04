@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Bug Tracker') }}</title>
+    <title>{{ config('app.name', 'Easy Issue') }}</title>
 
     <link rel="stylesheet" href="/css/app.css">
 {{--    <!-- 1. Addchat css -->--}}
@@ -70,9 +70,10 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <router-link to="/dashboard" class="brand-link">
-            <img src="/images/bug.png" alt="Bug tracker Logo" class="brand-image img-circle elevation-3"
+            <img src="/images/easyIssueLogo.png" alt="Easy Issue Logo"
+                 class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">Bug Tracker</span>
+            <span class="brand-text font-weight-light">{{ config('app.name', 'Easy Issue') }}</span>
         </router-link>
 
         <!-- Sidebar -->

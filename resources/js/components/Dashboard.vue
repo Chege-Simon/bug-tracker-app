@@ -111,7 +111,7 @@
                                                            class="text-dark">
                                                             {{
                                                             project.project_name
-                                                            }}
+                                                            }} <span class="ml-3">post issues</span>
                                                             <i
                                                                 class="nav-icon fa fa-arrow-right ml-5 pl-5"
                                                                 data-toggle="tooltip"
@@ -172,7 +172,7 @@
 
                                 <!-- ISSUES CHAT -->
                                 <div
-                                    class="card direct-chat direct-chat-primary text-dark" v-show="!$gate.isDeveloper()">
+                                    class="card direct-chat direct-chat-primary text-dark" v-show="showIssueChat === true && !$gate.isDeveloper()">
                                     <div class="card-header">
                                         <h3 class="card-title">Issues for
                                             <span style="font-size: 1.2em;
@@ -207,7 +207,8 @@
                                                         class="direct-chat-timestamp float-right">{{ issue.user.created_at | formatDate }}</span>
                                                 </div>
                                                 <!-- /.direct-chat-infos -->
-                                                <img class="direct-chat-img" src="/images/user.png" alt="message user image">
+                                                <img class="direct-chat-img"
+                                                     :src="getProfilePhoto(issue.user)" alt="message user image">
                                                 <!-- /.direct-chat-img -->
                                                 <div class="direct-chat-text">
                                                     {{issue.issue_description }}
@@ -230,7 +231,7 @@
                                                         class="direct-chat-timestamp float-left">{{ issue.created_at | formatDate }}</span>
                                                 </div>
                                                 <!-- /.direct-chat-infos -->
-                                                <img class="direct-chat-img" src="/images/user.png" alt="message user image">
+                                                <img class="direct-chat-img" :src="getProfilePhoto(issue.user)" alt="message user image">
                                                 <!-- /.direct-chat-img -->
                                                 <div class="direct-chat-text">
                                                     {{issue.issue_description }}
@@ -393,6 +394,7 @@
         },
         data(){
             return{
+                showIssueChat:false,
                 num_of_open_projects:0,
                 num_of_incomplete_tickets:0,
                 theProject_id:{},
@@ -410,6 +412,16 @@
             }
         },
         methods:{
+            getProfilePhoto(user){
+                if(user.profile_pic !== undefined) {
+                    let photo = "images/profile/"+ user.profile_pic ;
+                    return photo;
+                }else if(user.profile_pic === undefined || user.profile_pic
+                    === null){
+                    let photo = "images/user.png" ;
+                    return photo;
+                }
+            },
             postIssue(project_id,user_id){
                 this.$Progress.start();
                 this.form.project_id = project_id;
@@ -441,6 +453,7 @@
                 })
             },
             toMessage(id){
+                this.showIssueChat = true;
                 this.theProject_id = id;
                 this.loadProject(id);
                 this.loadIssues();
