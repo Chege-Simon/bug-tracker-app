@@ -29,7 +29,7 @@
                 <img href="{{ url('/') }}" src="/images/easyIssueLogo.png"
                      alt="Easy Issue Logo"
                      class="brand-image img-circle elevation-3 m-1"
-                     style="opacity: .8; width: 60px">
+                     style="opacity: .8; width: 65px">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Easy Issue') }}
                 </a>
