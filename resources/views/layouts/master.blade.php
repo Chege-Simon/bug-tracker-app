@@ -9,6 +9,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Easy Issue') }}</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{{ asset('images/easyIssueLogo.png')}}"
+          type="image/x-icon">
 
     <link rel="stylesheet" href="/css/app.css">
 {{--    <!-- 1. Addchat css -->--}}
