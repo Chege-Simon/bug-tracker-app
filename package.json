@@ -1,4 +1,7 @@
 {
+    "name": "easy-issue",
+    "description": "Issue tracker app",
+    "version": "1.0.0",
     "private": true,
     "engines": {
         "node": "12.x"
