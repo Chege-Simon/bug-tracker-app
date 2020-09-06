@@ -3554,6 +3554,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3952,11 +3953,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {},
   data: function data() {
     return {
+      totalTickets: 0,
+      num_of_complete_tickets: 0,
+      num_of_project_members: 0,
       files: {},
       recentActivity: [],
       file: '',
@@ -4092,8 +4097,35 @@ __webpack_require__.r(__webpack_exports__);
         _this5.project = response.data;
         var recentActivity = _this5.project.tickets;
         _this5.recentActivity = recentActivity.slice(recentActivity.length - 3);
+
+        _this5.calculateProjectMembers();
+
+        _this5.calculateTickets();
+
+        _this5.$Progress.finish();
       });
-      this.$Progress.finish();
+    },
+    calculateProjectMembers: function calculateProjectMembers() {
+      var num = 0;
+      this.project.users.map(function (user) {
+        num = num + 1;
+      });
+      this.num_of_project_members = num;
+    },
+    calculateTickets: function calculateTickets() {
+      var num = 0;
+      this.project.tickets.map(function (ticket) {
+        if (ticket.status === 'complete') {
+          num = num + 1;
+        }
+      });
+      this.num_of_complete_tickets = num;
+      this.project.tickets.map(function (ticket) {
+        if (ticket.status === '') {
+          num = num + 1;
+        }
+      });
+      this.totalTickets = num;
     },
     loadUsers: function loadUsers() {
       var _this6 = this;
@@ -69276,7 +69308,7 @@ var render = function() {
     _c("div", { staticClass: "card" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "card-body p-0" }, [
+      _c("div", { staticClass: "card-body  table-responsive p-0" }, [
         _c("table", { staticClass: "table table-striped projects" }, [
           _vm._m(1),
           _vm._v(" "),
@@ -69558,7 +69590,7 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body p-0" }, [
+        _c("div", { staticClass: "card-body table-responsive p-0" }, [
           _c("table", { staticClass: "table table-striped projects" }, [
             _vm._m(1),
             _vm._v(" "),
@@ -70571,40 +70603,40 @@ var render = function() {
                       },
                       [
                         _c("div", { staticClass: "form-group" }, [
-                          _c("div", { staticClass: "form-group" }, [
-                            _c(
-                              "label",
-                              {
-                                staticClass: "col-sm-12 control-label",
-                                attrs: { for: "profile_pic" }
-                              },
-                              [
-                                _vm._v(
-                                  "Profile Picture\n                                            "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "input-group" }, [
-                              _c("div", { staticClass: "custom-file" }, [
-                                _c("input", {
-                                  staticClass: "form-input",
-                                  attrs: {
-                                    type: "file",
-                                    accept: "image/png, image/jpeg",
-                                    name: "profile_pic",
-                                    id: "profile_pic"
-                                  },
-                                  on: { change: _vm.updateProfilePic }
-                                }),
-                                _vm._v(" "),
-                                _vm._m(1)
-                              ])
+                          _c(
+                            "label",
+                            {
+                              staticClass: "col-sm-12 control-label",
+                              attrs: { for: "profile_pic" }
+                            },
+                            [
+                              _vm._v(
+                                "Profile Picture\n                                            "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group" }, [
+                            _c("div", { staticClass: "custom-file row" }, [
+                              _c("input", {
+                                staticClass: "form-input col-sm-6",
+                                attrs: {
+                                  type: "file",
+                                  accept: "image/png, image/jpeg",
+                                  name: "profile_pic",
+                                  id: "profile_pic"
+                                },
+                                on: { change: _vm.updateProfilePic }
+                              }),
+                              _vm._v(" "),
+                              _vm._m(1)
                             ])
                           ])
                         ])
                       ]
                     ),
+                    _vm._v(" "),
+                    _c("br"),
                     _vm._v(" "),
                     _c("hr"),
                     _vm._v(" "),
@@ -70638,7 +70670,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
+    return _c("span", { staticClass: "input-group col-sm-6 m-1" }, [
       _c(
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
@@ -70722,7 +70754,76 @@ var render = function() {
               "div",
               { staticClass: "col-12 col-md-12 col-lg-8 order-2 order-md-1" },
               [
-                _vm._m(1),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-12 col-sm-4" }, [
+                    _c("div", { staticClass: "info-box bg-light" }, [
+                      _c("div", { staticClass: "info-box-content" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "info-box-text text-center text-muted"
+                          },
+                          [_vm._v("Tickets Issued")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "info-box-number text-center text-muted mb-0"
+                          },
+                          [_vm._v(_vm._s(_vm.totalTickets))]
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12 col-sm-4" }, [
+                    _c("div", { staticClass: "info-box bg-light" }, [
+                      _c("div", { staticClass: "info-box-content" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "info-box-text text-center text-muted"
+                          },
+                          [_vm._v("Tickets Completed")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "info-box-number text-center text-muted mb-0"
+                          },
+                          [_vm._v(_vm._s(_vm.num_of_complete_tickets))]
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12 col-sm-4" }, [
+                    _c("div", { staticClass: "info-box bg-light" }, [
+                      _c("div", { staticClass: "info-box-content" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "info-box-text text-center text-muted"
+                          },
+                          [_vm._v("Project Memebers")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "info-box-number text-center text-muted mb-0"
+                          },
+                          [_vm._v(_vm._s(_vm.num_of_project_members))]
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-12" }, [
@@ -70846,7 +70947,7 @@ var render = function() {
                   2
                 ),
                 _vm._v(" "),
-                _vm._m(2),
+                _vm._m(1),
                 _vm._v(" "),
                 _vm._l(_vm.files, function(file) {
                   return _c("ul", { staticClass: "list-unstyled" }, [
@@ -71139,7 +71240,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(3),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("div", { staticClass: "card card-primary" }, [
@@ -71219,7 +71320,7 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _vm._m(4)
+                        _vm._m(3)
                       ]
                     )
                   ])
@@ -71251,7 +71352,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(5),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("div", { staticClass: "card card-primary" }, [
@@ -71327,66 +71428,6 @@ var staticRenderFns = [
         },
         [_c("i", { staticClass: "fas fa-times" })]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12 col-sm-4" }, [
-        _c("div", { staticClass: "info-box bg-light" }, [
-          _c("div", { staticClass: "info-box-content" }, [
-            _c(
-              "span",
-              { staticClass: "info-box-text text-center text-muted" },
-              [_vm._v("Tickets Issued")]
-            ),
-            _vm._v(" "),
-            _c(
-              "span",
-              { staticClass: "info-box-number text-center text-muted mb-0" },
-              [_vm._v("2300")]
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-sm-4" }, [
-        _c("div", { staticClass: "info-box bg-light" }, [
-          _c("div", { staticClass: "info-box-content" }, [
-            _c(
-              "span",
-              { staticClass: "info-box-text text-center text-muted" },
-              [_vm._v("Tickets Completed")]
-            ),
-            _vm._v(" "),
-            _c(
-              "span",
-              { staticClass: "info-box-number text-center text-muted mb-0" },
-              [_vm._v("2000")]
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-sm-4" }, [
-        _c("div", { staticClass: "info-box bg-light" }, [
-          _c("div", { staticClass: "info-box-content" }, [
-            _c(
-              "span",
-              { staticClass: "info-box-text text-center text-muted" },
-              [_vm._v("People concerned")]
-            ),
-            _vm._v(" "),
-            _c(
-              "span",
-              { staticClass: "info-box-number text-center text-muted mb-0" },
-              [_vm._v("20 ")]
-            )
-          ])
-        ])
-      ])
     ])
   },
   function() {
@@ -71509,7 +71550,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body p-0" }, [
+        _c("div", { staticClass: "card-body  table-responsive p-0" }, [
           _c("table", { staticClass: "table table-striped projects" }, [
             _vm._m(2),
             _vm._v(" "),
@@ -72653,7 +72694,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body p-0" }, [
+        _c("div", { staticClass: "card-body table-responsive p-0" }, [
           _c("table", { staticClass: "table table-striped projects" }, [
             _vm._m(2),
             _vm._v(" "),

@@ -73,7 +73,8 @@ class ProjectController extends Controller
     {
 
 //        $project = Project::findOrFail($id);
-        $project = Project::with('tickets')->with('issues')->find($id);
+        $project = Project::with('tickets')->with('issues')->with('users')->find
+        ($id);
         return response()->json($project);
     }
 

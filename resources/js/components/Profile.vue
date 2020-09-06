@@ -62,33 +62,34 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <form
+                                    <form class=""
                                         @submit.prevent="updateProfile(user.id)">
                                         <div class="form-group">
-                                            <div class="form-group">
                                                 <label
                                                     class="col-sm-12 control-label"
                                                     for="profile_pic"
                                                 >Profile Picture
                                                 </label>
                                                 <div class="input-group">
-                                                    <div class="custom-file">
+                                                    <div
+                                                        class="custom-file row">
                                                         <input
+                                                            class="form-input col-sm-6"
                                                             @change="updateProfilePic"
                                                                type="file"
                                                             accept="image/png, image/jpeg"
-                                                               class="form-input"
                                                                name="profile_pic"
                                                                id="profile_pic">
-                                                    <div class="input-group-append">
-                                                        <button type="submit"
-                                                                class="btn btn-primary">Upload</button>
+                                                        <span
+                                                            class="input-group col-sm-6 m-1">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary">Upload</button>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
                                         </div>
                                     </form>
+                                    <br>
                                     <hr>
                                     <div class="row">
                                         <p class="col-md-8 text-left">want to change your password?</p>

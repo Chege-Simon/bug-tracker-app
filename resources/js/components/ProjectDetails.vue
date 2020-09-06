@@ -31,7 +31,8 @@
                                         <div class="info-box-content">
                                             <span
                                                 class="info-box-text text-center text-muted">Tickets Issued</span>
-                                            <span class="info-box-number text-center text-muted mb-0">2300</span>
+                                            <span
+                                                class="info-box-number text-center text-muted mb-0">{{ totalTickets }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -40,7 +41,7 @@
                                         <div class="info-box-content">
                                             <span
                                                 class="info-box-text text-center text-muted">Tickets Completed</span>
-                                            <span class="info-box-number text-center text-muted mb-0">2000</span>
+                                            <span class="info-box-number text-center text-muted mb-0">{{num_of_complete_tickets}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -48,9 +49,9 @@
                                     <div class="info-box bg-light">
                                         <div class="info-box-content">
                                             <span
-                                                class="info-box-text text-center text-muted">People concerned</span>
+                                                class="info-box-text text-center text-muted">Project Memebers</span>
                                             <span
-                                                class="info-box-number text-center text-muted mb-0">20 </span>
+                                                class="info-box-number text-center text-muted mb-0">{{ num_of_project_members }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -272,6 +273,9 @@
         },
         data() {
             return  {
+                totalTickets:0,
+                num_of_complete_tickets:0,
+                num_of_project_members:0,
                 files:{},
                 recentActivity:[],
                 file: '',
@@ -402,8 +406,32 @@
                         let recentActivity = this.project.tickets;
                         this.recentActivity =
                             recentActivity.slice(recentActivity.length-3);
-                    });
+                        this.calculateProjectMembers();
+                        this.calculateTickets();
                 this.$Progress.finish();
+                })
+            },
+            calculateProjectMembers(){
+                let num = 0;
+                this.project.users.map(function(user){
+                    num = num+1;
+                })
+                this.num_of_project_members = num;
+            },
+            calculateTickets(){
+                let num = 0;
+                this.project.tickets.map(function(ticket){
+                    if(ticket.status === 'complete'){
+                        num = num+1;
+                    }
+                })
+                this.num_of_complete_tickets = num;
+                this.project.tickets.map(function(ticket){
+                    if(ticket.status === ''){
+                        num = num+1;
+                    }
+                })
+                this.totalTickets = num;
             },
             loadUsers() {
                 this.$Progress.start();
