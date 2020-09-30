@@ -43,7 +43,7 @@ class MiscellaneousController extends Controller
             try{
                 DB::table('project_user')->insert(['user_id' => $user,'project_id' => $request[1]]);
             }catch(Exception $exception){
-                echo('Some users were already on the list') ;
+                return('Some users were already on the list') ;
             }
 
         }

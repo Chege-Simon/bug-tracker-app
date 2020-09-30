@@ -96,8 +96,8 @@
                 <code class="text-red">user@bug.com</code>
                 <p>Developer Role:</p>
                 <code class="text-red">developer@bug.com</code>
-                <p>Supreme Admin Role:</p>
-                <code class="text-red">supreme@bug.com</code>
+{{--                <p>Supreme Admin Role:</p>--}}
+{{--                <code class="text-red">supreme@bug.com</code>--}}
             </div>
         </div>
     </div>
